@@ -33,7 +33,7 @@
       </h1>
 
       <div
-        class="text-6xl sm:text-7xl lg:text-8xl font-extrabold text-saffron relative"
+        class="relative text-6xl sm:text-7xl lg:text-8xl font-extrabold text-saffron"
       >
         <Typewriter
           :words="['Gray Mātrā', 'Innovation', 'Excellence']"
@@ -44,6 +44,22 @@
           delete-speed="50"
           delay-speed="1800"
         />
+
+        <!-- Underline gradient lines from Inspira UI demo -->
+        <div class="absolute inset-x-0 top-full h-10 -mt-2">
+          <div
+            class="absolute inset-x-20 top-0 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm"
+          />
+          <div
+            class="absolute inset-x-20 top-0 h-px w-3/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+          />
+          <div
+            class="absolute inset-x-60 top-0 h-[5px] w-1/4 bg-gradient-to-r from-transparent via-sky-500 to-transparent blur-sm"
+          />
+          <div
+            class="absolute inset-x-60 top-0 h-px w-1/4 bg-gradient-to-r from-transparent via-sky-500 to-transparent"
+          />
+        </div>
       </div>
 
       <p class="mt-10 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
@@ -79,10 +95,5 @@ const { isDarkMode } = useDarkMode();
 }
 .bg-saffron {
   background-color: #fe9f06;
-}
-
-/* Glow under typewriter for better sparkles visibility */
-.text-saffron {
-  text-shadow: 0 0 20px rgba(254, 159, 6, 0.6);
 }
 </style>

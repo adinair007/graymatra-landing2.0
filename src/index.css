@@ -12,6 +12,24 @@ body {
 }
 
 @layer utilities {
+  .animate-glow {
+    animation: glow var(--duration) infinite linear;
+  }
+
+  @keyframes glow {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  .glow-border-container {
+    --angle: 0deg;
+  }
   @keyframes wave1 {
     0% {
       transform: translateX(0%);
@@ -47,8 +65,6 @@ body {
     animation: wave3 50s linear infinite;
   }
 }
-
-
 
 @layer base {
   :root {
@@ -106,8 +122,6 @@ body {
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
@@ -116,4 +130,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
-

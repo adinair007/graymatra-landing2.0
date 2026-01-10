@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import Vortex from "./Effects/Vortex.vue";
+import Vortex from "./ui/vortex/Vortex.vue";
 import CodingInterface from "../assets/CodingInterface.jpg";
 import ResponsiveDesign from "../assets/ResponsiveDesign.jpg";
 import NativeApps from "../assets/NativeApps.jpg";
