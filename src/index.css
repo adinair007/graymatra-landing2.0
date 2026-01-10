@@ -10,6 +10,19 @@ body {
   background-color: white !important; /* Fallback */
   @apply bg-white dark:bg-gray-900 !important;
 }
+.font-segoe {
+  font-family: "Segoe UI", "Segoe UI Variable", system-ui, -apple-system,
+    BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Bhavuka for elevating line */
+.font-bhavuka {
+  font-family: "Bhavuka", "Bhavuka Regular", system-ui, sans-serif;
+  font-weight: 400;
+}
 
 @layer utilities {
   .animate-glow {

@@ -4,6 +4,10 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+      },
       colors: {
         saffron: "#fe9f06",
         background: "hsl(var(--background))",

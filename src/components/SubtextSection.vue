@@ -2,51 +2,87 @@
   <section
     class="relative min-h-screen flex items-center justify-center bg-black overflow-hidden"
   >
-    <!-- Vortex Background – full coverage, fixed -->
+    <!-- Vortex Background -->
     <div class="absolute inset-0 z-0">
       <Vortex
         class="w-full h-full"
         background-color="#000000"
-        :range-y="150"
-        :particle-count="250"
-        :base-speed="0.5"
-        :range-speed="1"
-        :base-radius="1"
-        :range-radius="2"
-        :base-hue="220"
+        :range-y="180"
+        :particle-count="280"
+        :base-speed="0.4"
+        :range-speed="1.3"
+        :base-radius="1.1"
+        :range-radius="2.4"
+        :base-hue="210"
       />
     </div>
 
-    <!-- Content container with GlowBorder -->
-    <div class="relative z-10 w-full max-w-5xl mx-auto px-6">
-      <div class="relative">
-        <!-- GlowBorder – animated beam -->
+    <!-- Main Content Container -->
+    <div
+      class="relative z-10 w-full max-w-6xl mx-auto px-6 py-10 md:py-14 lg:py-16"
+    >
+      <div class="relative rounded-3xl overflow-hidden">
+        <!-- Brighter Glow Border -->
         <GlowBorder
-          :color="['#fe9f06', '#ff6b35', '#e63946']"
-          :border-width="3"
+          :color="['#feb733', '#ff8c4d', '#ff4d6e', '#ff9933']"
+          :border-width="4"
           :duration="10"
           :border-radius="24"
         />
 
-        <!-- Box Reveal Content -->
-        <div class="relative p-6 md:p-10">
-          <BoxReveal color="#E1251B" :duration="1">
-            <h2
-              class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-serif tracking-tight text-white text-center leading-tight"
-            >
-              We craft <span class="text-[#ff9933]">cutting-edge</span> native
-              applications,<br class="hidden sm:block" />
-              <span class="text-[#ff9933]">robust</span> software solutions,<br
-                class="hidden sm:block"
-              />
-              and <span class="text-[#ff9933]">responsive</span> websites<br
-                class="hidden sm:block"
-              />
-              that elevate your
-              <span class="text-[#ff9933]">digital presence</span> to new
-              heights.
-            </h2>
+        <!-- Inner content -->
+        <div
+          class="relative px-6 py-8 md:px-12 md:py-12 bg-black/40 backdrop-blur-sm rounded-3xl"
+        >
+          <!-- Logo -->
+          <BoxReveal color="#E1251B" :duration="1.0">
+            <div class="flex justify-center mb-8 md:mb-10">
+              <h1
+                class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bhavuka font-bold tracking-tight text-center leading-none drop-shadow-2xl"
+              >
+               <span class="text-[#b4b4b4]">Gray</span><span class="text-[#ff7a00] -ml-0.5 md:-ml-0.5">Mātrā</span>
+              </h1>
+            </div>
           </BoxReveal>
+
+          <!-- Taglines -->
+          <div class="mt-2 md:mt-4 text-center max-w-4xl mx-auto font-segoe">
+            <!-- First three lines -->
+            <BoxReveal color="#E1251B" :duration="1.0" :delay="1">
+              <div class="space-y-4 md:space-y-6">
+                <p
+                  class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-white"
+                >
+                  Crafting
+                  <span class="text-[#ff9933]">cutting-edge</span> native
+                  applications
+                </p>
+
+                <p
+                  class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-white"
+                >
+                  Providing
+                  <span class="text-[#ff9933]">robust</span> software solutions
+                </p>
+
+                <p
+                  class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-white"
+                >
+                  Creating
+                  <span class="text-[#ff9933]">responsive</span> websites
+                </p>
+              </div>
+            </BoxReveal>
+
+            <!-- Elevating line – using TextGenerateEffect with correct string prop -->
+            <div class="mt-8 md:mt-10 text-center">
+              <TextGenerateEffect
+                class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bhavuka font-medium tracking-tight text-[#ff9933] leading-tight"
+                words="Elevating your digital presence to new heights"
+                :delay="3000"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -57,4 +93,22 @@
 import GlowBorder from "./ui/glow-border/GlowBorder.vue";
 import Vortex from "./ui/vortex/Vortex.vue";
 import BoxReveal from "./ui/box-reveal/BoxReveal.vue";
+import TextGenerateEffect from "./ui/text-generate-effect/TextGenerateEffect.vue";
 </script>
+
+<style scoped>
+/* Segoe UI for main taglines */
+.font-segoe {
+  font-family: "Segoe UI", "Segoe UI Variable", system-ui, -apple-system,
+    BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Bhavuka for elevating line */
+.font-bhavuka {
+  font-family: "Bhavuka", "Bhavuka Regular", system-ui, sans-serif;
+  font-weight: 400;
+}
+</style>
