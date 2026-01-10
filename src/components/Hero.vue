@@ -61,20 +61,6 @@
           />
         </div>
       </div>
-
-      <p class="mt-10 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
-        We craft cutting-edge native applications, robust software solutions,
-        and responsive websites to elevate your digital presence.
-      </p>
-
-      <div class="mt-12">
-        <a
-          href="#contact"
-          class="inline-block bg-saffron text-white px-12 py-6 rounded-full text-xl font-semibold hover:bg-orange-700 transition-all duration-300 shadow-2xl hover:shadow-saffron/60 hover:-translate-y-1 transform"
-        >
-          Get Started
-        </a>
-      </div>
     </div>
   </section>
 </template>
