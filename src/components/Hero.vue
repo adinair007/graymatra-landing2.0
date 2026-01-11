@@ -2,50 +2,37 @@
   <section
     class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
   >
-    <!-- Sparkles – concentrated under typewriter text -->
-    <div
-      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-64 z-0 pointer-events-none"
-    >
-      <Sparkles
-        class="size-full"
-        particle-color="#ffffff"
-        :density="120"
-        :speed="0.9"
-      />
-    </div>
-
-    <!-- Wavy Background – full coverage, saffron-red blend -->
-    <div class="absolute inset-0 z-0 opacity-50 pointer-events-none">
-      <WavyBackground
-        class="size-full"
-        :colors="['#fe9f06', '#ff6b35', '#e63946', '#d00000', '#9d0208']"
-        wave-width="140"
-        wave-speed="0.5"
-        wave-opacity="0.6"
-        blur="8"
-      />
+    <!-- Neural Background -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <NeuralBgVue class="size-full" />
     </div>
 
     <!-- Main Content -->
     <div class="relative z-10 max-w-5xl mx-auto px-6 text-center w-full">
-      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6">
+      <h1
+        class="text-5xl sm:text-6xl lg:text-7xl font-segoe font-bold text-white mb-6"
+      >
         Empowering Your Digital Presence with
       </h1>
 
       <div
         class="relative text-6xl sm:text-7xl lg:text-8xl font-extrabold text-saffron"
       >
-        <Typewriter
-          :words="['Gray Mātrā', 'Innovation', 'Excellence']"
+        <CustomTypewriter
+          :words="[
+            { text: 'Innovation', class: 'font-segoe font-medium' },
+            { text: 'Excellence', class: 'font-segoe font-medium' },
+            { text: 'Gray Mātrā', class: 'font-bhavuka' },
+          ]"
+          :type-speed="60"
+          :delete-speed="50"
+          :delay-speed="1800"
           loop
           cursor
           cursor-style="|"
-          type-speed="80"
-          delete-speed="50"
-          delay-speed="1800"
         />
 
-        <!-- Underline gradient lines from Inspira UI demo -->
+        <!-- Underline gradient lines -->
         <div class="absolute inset-x-0 top-full h-10 -mt-2">
           <div
             class="absolute inset-x-20 top-0 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm"
@@ -66,10 +53,8 @@
 </template>
 
 <script setup>
-import { Typewriter } from "vue-simple-typewriter";
-import "vue-simple-typewriter/dist/style.css";
-import { Sparkles } from "./ui/sparkles";
-import { WavyBackground } from "./ui/wavy-background";
+import CustomTypewriter from "./ui/CustomTypewriter.vue";
+import NeuralBgVue from "./ui/bg-neural/NeuralBg.vue";
 
 import { useDarkMode } from "../stores/darkMode";
 const { isDarkMode } = useDarkMode();

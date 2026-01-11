@@ -31,8 +31,8 @@ const props = withDefaults(defineProps<Props>(), {
   particleDensity: 120,
 });
 
-const containerRef = ref<HTMLDivElement | null>(null);
-const canvasRef = ref<HTMLCanvasElement | null>(null);
+const containerRef = useTemplateRef("containerRef");
+const canvasRef = useTemplateRef("canvasRef");
 const particles = ref<Particle[]>([]);
 const ctx = ref<CanvasRenderingContext2D | null>(null);
 
@@ -65,7 +65,10 @@ function generateParticles(): void {
       size: Math.random() * (props.maxSize - props.minSize) + props.minSize,
       opacity: Math.random() * 0.5 + 0.3,
       vx: (Math.random() - 0.5) * baseSpeed * speedVariance * props.speed,
-      vy: ((Math.random() - 0.5) * baseSpeed - baseSpeed * 0.3) * speedVariance * props.speed,
+      vy:
+        ((Math.random() - 0.5) * baseSpeed - baseSpeed * 0.3) *
+        speedVariance *
+        props.speed,
       phase: Math.random() * Math.PI * 2,
       phaseSpeed: 0.015,
     });
@@ -99,7 +102,7 @@ function updateAndDrawParticles() {
       (newY * canvas.height) / 100,
       particle.size,
       0,
-      Math.PI * 2,
+      Math.PI * 2
     );
     ctx.value!.fillStyle = `${props.particleColor}${Math.floor(opacity * 255)
       .toString(16)
@@ -116,7 +119,9 @@ function updateAndDrawParticles() {
   });
 }
 
-const { pause, resume } = useRafFn(updateAndDrawParticles, { immediate: false });
+const { pause, resume } = useRafFn(updateAndDrawParticles, {
+  immediate: false,
+});
 
 // Handle window resize
 let resizeObserver: ResizeObserver | undefined;
@@ -151,9 +156,6 @@ onBeforeUnmount(() => {
     class="relative size-full overflow-hidden will-change-transform"
     :style="{ background }"
   >
-    <canvas
-      ref="canvasRef"
-      class="absolute inset-0 size-full"
-    />
+    <canvas ref="canvasRef" class="absolute inset-0 size-full" />
   </div>
 </template>
