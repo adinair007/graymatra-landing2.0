@@ -1,5 +1,9 @@
 <template>
-  <div ref="wrapper" class="wrapper" data-scroll-container>
+  <div
+    ref="scrollContainer"
+    data-scroll-container
+    class="smooth-scroll-container"
+  >
     <slot />
   </div>
 </template>
@@ -9,38 +13,93 @@ import LocomotiveScroll from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import { onMounted, onBeforeUnmount, ref, nextTick } from "vue";
 
-const wrapper = ref<HTMLDivElement | null>(null);
+const scrollContainer = ref<HTMLDivElement | null>(null);
 let scrollInstance: LocomotiveScroll | null = null;
 
 onMounted(async () => {
   await nextTick();
 
-  if (!wrapper.value) return;
+  if (!scrollContainer.value) return;
 
   scrollInstance = new LocomotiveScroll({
-    el: wrapper.value,
+    el: scrollContainer.value,
     smooth: true,
-    lerp: 0.1,
-    multiplier: 1,
+    lerp: 0.08,
+    multiplier: 1.2,
     getDirection: true,
     getSpeed: true,
     class: "is-inview",
-    scrollbar: false,
+    scrollFromAnywhere: true,
+    resetNativeScroll: true,
+    reloadOnContextChange: true,
+    smartphone: { smooth: true },
+    tablet: { smooth: true },
   });
 
-  window.addEventListener("resize", () => scrollInstance?.update());
+  // Handle anchor links
+  const handleAnchorClick = (e: Event) => {
+    const target = e.target as HTMLElement;
+    const anchor = target.closest('a[href^="#"]');
+
+    if (anchor) {
+      e.preventDefault();
+      const href = anchor.getAttribute("href");
+      if (href && scrollInstance) {
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          // Update scroll before navigating
+          scrollInstance.update();
+
+          scrollInstance.scrollTo(targetElement, {
+            offset: -80,
+            duration: 1200,
+            easing: [0.25, 0.0, 0.35, 1.0],
+          });
+        }
+      }
+    }
+  };
+
+  document.addEventListener("click", handleAnchorClick);
+
+  // Update on resize
+  const handleResize = () => {
+    if (scrollInstance) {
+      scrollInstance.update();
+    }
+  };
+  window.addEventListener("resize", handleResize);
+
+  // Force multiple updates to ensure all sections are detected
+  setTimeout(() => {
+    scrollInstance?.update();
+  }, 100);
+
+  setTimeout(() => {
+    scrollInstance?.update();
+  }, 500);
+
+  setTimeout(() => {
+    scrollInstance?.update();
+  }, 1000);
 });
 
 onBeforeUnmount(() => {
   scrollInstance?.destroy();
   window.removeEventListener("resize", () => {});
+  document.removeEventListener("click", () => {});
 });
 </script>
 
-<style scoped>
-.wrapper {
-  width: 100%;
+<style>
+.smooth-scroll-container {
   min-height: 100vh;
-  /* Remove overflow: hidden */
+  position: relative;
+  background: transparent;
+}
+
+/* Ensure sections are properly visible */
+[data-scroll-section] {
+  will-change: transform;
 }
 </style>

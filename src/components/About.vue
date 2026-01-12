@@ -1,8 +1,5 @@
 <template>
-  <section
-    id="about"
-    class="py-16 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-  >
+  <section id="about" class="py-16 relative overflow-hidden">
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center"
     >

@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-white dark:bg-black text-gray-900 dark:text-white py-4 px-6 fixed w-full top-0 z-50 shadow-lg transition-colors duration-300"
+    class="bg-black/30 backdrop-blur-md border-b border-white/10 text-white py-4 px-6 fixed w-full top-0 z-50 transition-all duration-300"
   >
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <!-- Logo -->
@@ -14,16 +14,17 @@
 
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center space-x-8">
-        <a v-scroll-to="'#home'" class="nav-link">Home</a>
-        <a v-scroll-to="'#services'" class="nav-link">Services</a>
-        <a v-scroll-to="'#about'" class="nav-link">About</a>
-        <a v-scroll-to="'#contact'" class="nav-link">Contact</a>
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
 
         <button
           @click="toggleDarkMode"
-          class="p-2 rounded-full hover:bg-saffron/20 transition-colors"
+          class="p-2 rounded-full hover:bg-white/10 transition-colors"
           aria-label="Toggle dark mode"
         >
+          <!-- Dark mode icons -->
           <svg
             v-if="isDarkMode"
             class="w-6 h-6 text-saffron"
@@ -59,7 +60,7 @@
       <div class="md:hidden">
         <button
           @click="isMobileOpen = !isMobileOpen"
-          class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+          class="p-2 rounded-md hover:bg-white/10 transition-colors"
           aria-label="Toggle menu"
         >
           <svg
@@ -83,7 +84,7 @@
       </div>
     </div>
 
-    <!-- Mobile Menu with slide animation -->
+    <!-- Mobile Menu -->
     <div
       v-if="isMobileOpen"
       class="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
@@ -91,35 +92,31 @@
         isMobileOpen ? 'max-h-96 py-6 opacity-100' : 'max-h-0 py-0 opacity-0'
       "
     >
-      <div class="bg-white dark:bg-black px-6 flex flex-col space-y-5">
+      <div class="bg-black/80 backdrop-blur-md px-6 flex flex-col space-y-5">
+        <a href="#home" @click="isMobileOpen = false" class="nav-link-mobile">
+          Home
+        </a>
         <a
-          v-scroll-to="'#home'"
+          href="#services"
           @click="isMobileOpen = false"
           class="nav-link-mobile"
-          >Home</a
         >
+          Services
+        </a>
+        <a href="#about" @click="isMobileOpen = false" class="nav-link-mobile">
+          About
+        </a>
         <a
-          v-scroll-to="'#services'"
+          href="#contact"
           @click="isMobileOpen = false"
           class="nav-link-mobile"
-          >Services</a
         >
-        <a
-          v-scroll-to="'#about'"
-          @click="isMobileOpen = false"
-          class="nav-link-mobile"
-          >About</a
-        >
-        <a
-          v-scroll-to="'#contact'"
-          @click="isMobileOpen = false"
-          class="nav-link-mobile"
-          >Contact</a
-        >
+          Contact
+        </a>
 
         <button
           @click="toggleDarkMode"
-          class="self-start px-3 py-2 rounded hover:bg-saffron/20 transition-colors"
+          class="self-start px-3 py-2 rounded hover:bg-white/10 transition-colors"
         >
           Toggle Dark Mode
         </button>
@@ -140,25 +137,12 @@ const isMobileOpen = ref(false);
 /* Desktop nav items */
 .nav-link {
   @apply px-3 py-2 rounded-md font-medium transition-all duration-200
-         hover:text-white hover:bg-saffron;
+         hover:text-white hover:bg-white/10;
 }
 
-/* Mobile nav items - slightly larger & full width feel */
+/* Mobile nav items */
 .nav-link-mobile {
   @apply block px-4 py-3 text-lg font-medium rounded-md transition-all duration-200
-         hover:text-white hover:bg-saffron;
-}
-
-/* Saffron color - define once if you don't have it globally */
-:root {
-  --saffron: #ff9933;
-}
-
-.text-saffron {
-  color: var(--saffron);
-}
-
-.bg-saffron {
-  background-color: var(--saffron);
+         hover:text-white hover:bg-white/10;
 }
 </style>

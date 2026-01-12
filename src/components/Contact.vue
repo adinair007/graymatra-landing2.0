@@ -1,8 +1,5 @@
 <template>
-  <section
-    id="contact"
-    class="py-16 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-  >
+  <section id="contact" class="py-16 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8">
         Get in <span class="text-saffron">Touch</span>

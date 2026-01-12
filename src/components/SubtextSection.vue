@@ -1,46 +1,29 @@
 <template>
   <section
-    class="relative min-h-screen flex items-center justify-center bg-black overflow-hidden"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    data-scroll-section
   >
-    <!-- Vortex Background -->
-    <div class="absolute inset-0 z-0">
-      <Vortex
-        class="w-full h-full"
-        background-color="#000000"
-        :range-y="180"
-        :particle-count="280"
-        :base-speed="0.4"
-        :range-speed="1.3"
-        :base-radius="1.1"
-        :range-radius="2.4"
-        :base-hue="210"
-      />
-    </div>
-
-    <!-- Main Content Container -->
     <div
       class="relative z-10 w-full max-w-6xl mx-auto px-6 py-10 md:py-14 lg:py-16"
     >
       <div class="relative rounded-3xl overflow-hidden">
-        <!-- Brighter Glow Border -->
         <GlowBorder
           :color="['#feb733', '#ff8c4d', '#ff4d6e', '#ff9933']"
           :border-width="4"
           :duration="10"
           :border-radius="24"
         />
-
-        <!-- Inner content -->
         <div
           class="relative px-6 py-8 md:px-12 md:py-12 bg-black/40 backdrop-blur-sm rounded-3xl"
         >
-          <!-- Logo -->
+          <!-- Logo/Header in Bhavuka -->
           <BoxReveal color="#E1251B" :duration="1.0">
             <div class="flex justify-center mb-8 md:mb-10">
               <h1
                 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bhavuka font-bold tracking-tight text-center leading-none drop-shadow-2xl"
               >
-               <span class="text-[#b4b4b4]">Gray</span><span class="text-[#ff7a00] -ml-0.5 md:-ml-0.5">Mātrā</span>
+                <span class="text-[#b4b4b4]">Gray</span
+                ><span class="text-[#ff7a00] -ml-0.5 md:-ml-0.5">Mātrā</span>
               </h1>
             </div>
           </BoxReveal>
@@ -74,7 +57,7 @@
               </div>
             </BoxReveal>
 
-            <!-- Elevating line – using TextGenerateEffect with correct string prop -->
+            <!-- Elevating line -->
             <div class="mt-8 md:mt-10 text-center">
               <TextGenerateEffect
                 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bhavuka font-medium tracking-tight text-[#ff9933] leading-tight"
@@ -91,24 +74,6 @@
 
 <script setup lang="ts">
 import GlowBorder from "./ui/glow-border/GlowBorder.vue";
-import Vortex from "./ui/vortex/Vortex.vue";
 import BoxReveal from "./ui/box-reveal/BoxReveal.vue";
 import TextGenerateEffect from "./ui/text-generate-effect/TextGenerateEffect.vue";
 </script>
-
-<style scoped>
-/* Segoe UI for main taglines */
-.font-segoe {
-  font-family: "Segoe UI", "Segoe UI Variable", system-ui, -apple-system,
-    BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  font-feature-settings: "liga" 1, "calt" 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Bhavuka for elevating line */
-.font-bhavuka {
-  font-family: "Bhavuka", "Bhavuka Regular", system-ui, sans-serif;
-  font-weight: 400;
-}
-</style>

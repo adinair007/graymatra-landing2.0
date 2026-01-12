@@ -1,29 +1,23 @@
 <template>
-  <SmoothScroll>
-    <div
-      class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-    >
-      <Navbar />
-      <Hero />
-      <SubtextSection />
-      <Services />
-      <About />
-      <Contact />
-      <Footer />
+  <div class="app-wrapper">
+    <div class="fixed inset-0 z-0 pointer-events-none">
+      <NeuralBgVue class="w-full h-full" />
     </div>
-  </SmoothScroll>
+    <Navbar />
+    <SmoothScroll>
+      <main class="relative z-10">
+        <Hero id="home" data-scroll-section />
+        <SubtextSection id="subtext" data-scroll-section />
+        <Services id="services" data-scroll-section />
+        <About id="about" data-scroll-section />
+        <Contact id="contact" data-scroll-section />
+        <Footer id="footer" data-scroll-section />
+      </main>
+    </SmoothScroll>
+  </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import { useDarkMode } from "./stores/darkmode";
-
-const dark = useDarkMode();
-
-onMounted(() => {
-  dark.init();
-});
-import SmoothScroll from "./components/SmoothScroll.vue";
 import Navbar from "./components/Navbar.vue";
 import Hero from "./components/Hero.vue";
 import SubtextSection from "./components/SubtextSection.vue";
@@ -31,4 +25,35 @@ import Services from "./components/Services.vue";
 import About from "./components/About.vue";
 import Contact from "./components/Contact.vue";
 import Footer from "./components/Footer.vue";
+import SmoothScroll from "./components/SmoothScroll.vue";
+import NeuralBgVue from "./components/ui/bg-neural/NeuralBg.vue";
+
+import { onMounted, nextTick } from "vue";
+import { useDarkMode } from "./stores/darkMode";
+
+const dark = useDarkMode();
+
+onMounted(async () => {
+  dark.init();
+  await nextTick(); // Wait for DOM to settle
+  // Force Locomotive to recalculate full height
+  document.dispatchEvent(new Event("resize"));
+  // Optional: extra update after 500ms for images/content
+  setTimeout(() => {
+    window.dispatchEvent(new Event("resize"));
+  }, 500);
+});
 </script>
+
+<style>
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background: transparent;
+}
+
+main {
+  min-height: 100vh;
+  background: transparent;
+}
+</style>

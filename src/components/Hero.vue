@@ -1,11 +1,8 @@
 <template>
   <section
-    class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    data-scroll-section
   >
-    <!-- Neural Background -->
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <NeuralBgVue class="size-full" />
-    </div>
 
     <!-- Main Content -->
     <div class="relative z-10 max-w-5xl mx-auto px-6 text-center w-full">
@@ -54,7 +51,6 @@
 
 <script setup>
 import CustomTypewriter from "./ui/CustomTypewriter.vue";
-import NeuralBgVue from "./ui/bg-neural/NeuralBg.vue";
 
 import { useDarkMode } from "../stores/darkMode";
 const { isDarkMode } = useDarkMode();
