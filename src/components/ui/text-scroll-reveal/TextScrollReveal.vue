@@ -1,59 +1,116 @@
-<script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
-
-interface Props {
-  class?: string;
-  text: string;
-}
-
-// Props
-const props = defineProps<Props>();
-
-const textScrollRevealRef = ref<HTMLElement | null>(null);
-
-const words = computed(() => props.text.split(" "));
-
-const scrollYProgress = ref(0);
-
-function updateScrollYProgress() {
-  if (textScrollRevealRef.value) {
-    const boundingRect = textScrollRevealRef.value.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    scrollYProgress.value = (boundingRect.y / windowHeight) * -1;
-  }
-}
-
-onMounted(() => {
-  window.addEventListener("scroll", updateScrollYProgress);
-  window.addEventListener("resize", updateScrollYProgress);
-  updateScrollYProgress();
-});
-
-onUnmounted(() => {
-  window.removeEventListener("scroll", updateScrollYProgress);
-  window.removeEventListener("resize", updateScrollYProgress);
-});
-</script>
-
 <template>
-  <div
-    ref="textScrollRevealRef"
-    class="relative z-0 h-[200vh]"
-    :class="[$props.class]"
-  >
-    <div class="sticky top-0 mx-auto flex h-1/2 max-w-4xl items-center bg-transparent px-4 py-20">
-      <p
-        class="flex flex-wrap p-5 text-2xl font-bold text-black/20 md:p-8 md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl dark:text-white/20"
+  <div ref="containerRef" class="text-scroll-reveal-wrapper">
+    <div class="text-scroll-reveal-content" :class="className">
+      <span
+        v-for="(word, index) in words"
+        :key="index"
+        class="inline-block mr-2 sm:mr-3 transition-all duration-500"
+        :style="getWordStyle(index)"
       >
-        <ScrollWord
-          v-for="(word, i) in words"
-          :key="i"
-          :word="word"
-          :progress="scrollYProgress"
-          :range="[i / words.length, (i + 1) / words.length]"
-        />
-      </p>
+        {{ word }}
+      </span>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+
+const props = defineProps({
+  text: {
+    type: String,
+    required: true,
+  },
+  className: {
+    type: String,
+    default: "",
+  },
+});
+
+const containerRef = ref(null);
+const scrollProgress = ref(0);
+
+const words = computed(() => props.text.split(" "));
+
+const getWordStyle = (index) => {
+  const totalWords = words.value.length;
+  // More aggressive reveal calculation with buffer for last words
+  const wordProgress = (scrollProgress.value * (totalWords + 4) - index) / 1.8;
+  const opacity = Math.max(0.15, Math.min(1, wordProgress));
+  const blur = Math.max(0, 12 - wordProgress * 12);
+
+  return {
+    opacity,
+    filter: `blur(${blur}px)`,
+  };
+};
+
+let observer = null;
+
+onMounted(() => {
+  if (!containerRef.value) return;
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          updateScrollProgress();
+        }
+      });
+    },
+    { threshold: Array.from({ length: 100 }, (_, i) => i / 100) }
+  );
+
+  observer.observe(containerRef.value);
+
+  window.addEventListener("scroll", updateScrollProgress);
+});
+
+const updateScrollProgress = () => {
+  if (!containerRef.value) return;
+
+  const rect = containerRef.value.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  // Use viewport-based calculation for sticky effect
+  // Progress from when element enters viewport to when it exits
+  const viewportCenter = windowHeight / 2;
+  const elementCenter = rect.top + rect.height / 2;
+
+  // Calculate progress based on distance from viewport center
+  const maxDistance = windowHeight;
+  const distance = viewportCenter - elementCenter;
+
+  // Normalize to 0-1 range, with extended range for complete reveal
+  const progress = Math.max(
+    0,
+    Math.min(1, (distance + maxDistance * 0.5) / (maxDistance * 1.2))
+  );
+
+  scrollProgress.value = progress;
+};
+
+onBeforeUnmount(() => {
+  if (observer) observer.disconnect();
+  window.removeEventListener("scroll", updateScrollProgress);
+});
+</script>
+
+<style scoped>
+.text-scroll-reveal-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-scroll-reveal-content {
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  will-change: opacity;
+}
+</style>
