@@ -126,8 +126,8 @@ function initOGL() {
   try {
     const renderer = new Renderer({
       canvas,
-      width: canvas.clientWidth,
-      height: canvas.clientHeight,
+      width: window.innerWidth,
+      height: window.innerHeight,
       dpr: Math.min(window.devicePixelRatio, 2),
     });
 
@@ -177,12 +177,10 @@ function resizeCanvas() {
   const mesh = meshRef.value;
   const canvas = canvasRef.value;
 
-  if (!canvas) return;
+  if (!canvas || !renderer || !mesh) return;
 
-  if (!renderer || !mesh) return;
-
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
   renderer.setSize(width, height);
 
@@ -219,7 +217,8 @@ function render() {
       ];
     }
     if (uniforms.u_scroll_progress) {
-      uniforms.u_scroll_progress.value = window.pageYOffset / (2 * window.innerHeight);
+      uniforms.u_scroll_progress.value =
+        window.pageYOffset / (2 * window.innerHeight);
     }
   }
 
@@ -252,7 +251,7 @@ watch(
     if (mesh && mesh.program && mesh.program.uniforms.u_hue) {
       mesh.program.uniforms.u_hue.value = newHue;
     }
-  },
+  }
 );
 
 watch(
@@ -262,7 +261,7 @@ watch(
     if (mesh && mesh.program && mesh.program.uniforms.u_saturation) {
       mesh.program.uniforms.u_saturation.value = newSaturation;
     }
-  },
+  }
 );
 
 watch(
@@ -272,7 +271,7 @@ watch(
     if (mesh && mesh.program && mesh.program.uniforms.u_chroma) {
       mesh.program.uniforms.u_chroma.value = newChroma;
     }
-  },
+  }
 );
 
 onMounted(() => {
