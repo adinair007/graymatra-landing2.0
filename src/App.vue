@@ -9,6 +9,7 @@
         <Hero id="home" data-scroll-section />
         <SubtextSection id="subtext" data-scroll-section />
         <Services id="services" data-scroll-section />
+        <M1CasaSection id="m1casa" data-scroll-section />
         <About id="about" data-scroll-section />
         <Contact id="contact" data-scroll-section />
         <Footer id="footer" data-scroll-section />
@@ -22,6 +23,7 @@ import Navbar from "./components/Navbar.vue";
 import Hero from "./components/Hero.vue";
 import SubtextSection from "./components/SubtextSection.vue";
 import Services from "./components/Services.vue";
+import M1CasaSection from "./components/M1CasaSection.vue";
 import About from "./components/About.vue";
 import Contact from "./components/Contact.vue";
 import Footer from "./components/Footer.vue";

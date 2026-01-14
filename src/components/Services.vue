@@ -41,16 +41,16 @@
           </template>
         </ContainerScroll>
         <div class="text-center -mt-32 max-w-3xl mx-auto mb-40">
-          <TextReveal
-            :duration="0.8"
-            :delay="0.3"
-            :stagger="0.12"
-            class="text-center text-4xl leading-relaxed font-semibold text-gray-700 dark:text-gray-300"
-          >
-            High-performance native mobile apps for iOS and Android, tailored to
-            your business needs with seamless user experiences and optimal
-            performance.
-          </TextReveal>
+          <div class="overflow-hidden">
+            <p
+              ref="nativeAppsText"
+              class="text-center text-4xl leading-relaxed font-semibold text-gray-700 dark:text-gray-300 opacity-0"
+            >
+              High-performance native mobile apps for iOS and Android, tailored
+              to your business needs with seamless user experiences and optimal
+              performance.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -78,15 +78,15 @@
 
         <!-- Description with Text Reveal -->
         <div class="text-center max-w-3xl mx-auto">
-          <TextReveal
-            :duration="0.8"
-            :delay="0.3"
-            :stagger="0.12"
-            class="text-center text-4xl leading-relaxed font-semibold text-gray-700 dark:text-gray-300"
-          >
-            Custom software solutions to optimize workflows and enhance business
-            scalability with cutting-edge technologies.
-          </TextReveal>
+          <div class="overflow-hidden">
+            <p
+              ref="softwareDevText"
+              class="text-center text-4xl leading-relaxed font-semibold text-gray-700 dark:text-gray-300 opacity-0"
+            >
+              Custom software solutions to optimize workflows and enhance
+              business scalability with cutting-edge technologies.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -214,35 +214,105 @@
 </template>
 
 <script setup>
-import { ref, h } from "vue";
+import { ref, h, onMounted, onUnmounted, nextTick } from "vue";
 import MorphingText from "./ui/morphing-text/MorphingText.vue";
 import TextScrollReveal from "./ui/text-scroll-reveal/TextScrollReveal.vue";
-import TextReveal from "./ui/text-reveal/TextReveal.vue";
 import ContainerScroll from "./ui/container-scroll/ContainerScroll.vue";
 import IconCloud from "./ui/icon-cloud/IconCloud.vue";
 
 const texts = ["Services", "Solutions", "Expertise"];
 
+const nativeAppsText = ref(null);
+const softwareDevText = ref(null);
+
+let hasNativeAppsAnimated = false;
+let hasSoftwareDevAnimated = false;
+
+function checkScroll() {
+  // Check native apps text animation
+  if (!hasNativeAppsAnimated && nativeAppsText.value) {
+    const rect = nativeAppsText.value.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    if (rect.top < windowHeight * 0.85) {
+      hasNativeAppsAnimated = true;
+      animateText(nativeAppsText.value);
+    }
+  }
+
+  // Check software dev text animation
+  if (!hasSoftwareDevAnimated && softwareDevText.value) {
+    const rect = softwareDevText.value.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    if (rect.top < windowHeight * 0.85) {
+      hasSoftwareDevAnimated = true;
+      animateText(softwareDevText.value);
+    }
+  }
+}
+
+function animateText(element) {
+  if (element) {
+    setTimeout(() => {
+      element.style.opacity = "1";
+      element.style.transition = "opacity 1s ease-out";
+    }, 300);
+  }
+}
+
+onMounted(async () => {
+  await nextTick();
+
+  // Listen to scroll events
+  window.addEventListener("scroll", checkScroll);
+
+  const scrollContainer = document.querySelector("[data-scroll-container]");
+  if (scrollContainer) {
+    scrollContainer.addEventListener("scroll", checkScroll);
+  }
+
+  // Set up interval to continuously check scroll position
+  const checkInterval = setInterval(checkScroll, 100);
+
+  // Clean up interval after 30 seconds
+  setTimeout(() => {
+    clearInterval(checkInterval);
+  }, 30000);
+
+  // Initial check
+  checkScroll();
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", checkScroll);
+
+  const scrollContainer = document.querySelector("[data-scroll-container]");
+  if (scrollContainer) {
+    scrollContainer.removeEventListener("scroll", checkScroll);
+  }
+});
+
 // Tech stack images for icon cloud
 const techStackImages = [
   "https://cdn.simpleicons.org/react/61DAFB",
   "https://cdn.simpleicons.org/vue.js/4FC08D",
-  "https://cdn.simpleicons.org/angular/DD0031",
-  "https://cdn.simpleicons.org/node.js/339933",
+  "https://cdn.simpleicons.org/nodedotjs/339933",
   "https://cdn.simpleicons.org/python/3776AB",
-  "https://cdn.simpleicons.org/java/007396",
+  "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", // Java alternative
   "https://cdn.simpleicons.org/typescript/3178C6",
   "https://cdn.simpleicons.org/javascript/F7DF1E",
   "https://cdn.simpleicons.org/docker/2496ED",
   "https://cdn.simpleicons.org/kubernetes/326CE5",
   "https://cdn.simpleicons.org/mongodb/47A248",
   "https://cdn.simpleicons.org/postgresql/4169E1",
-  "https://cdn.simpleicons.org/redis/DC382D",
   "https://cdn.simpleicons.org/git/F05032",
-  "https://cdn.simpleicons.org/github/181717",
-  "https://cdn.simpleicons.org/aws/FF9900",
+  "https://cdn.simpleicons.org/github/FFFFFF",
+  "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", // AWS alternative
+  "https://cdn.simpleicons.org/postman/FF6C37",
+  "https://cdn.simpleicons.org/render/46E3B7",
+  "https://cdn.simpleicons.org/swift/F05138",
 ];
-
 // Previous detailed icons
 const GlobeIcon = () =>
   h(
