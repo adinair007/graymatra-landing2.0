@@ -11,7 +11,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  hue: -20,
+  hue: 17,
   saturation: 0.9,
   chroma: 0.6,
 });
@@ -104,11 +104,11 @@ const fragmentShader = `
       // Convert hue from degrees to 0-1 range
       float normalizedHue = u_hue / 360.0;
       
-      // Create HSL color with animation
+      // Create HSL color WITHOUT scroll animation - locked color
       vec3 hsl = vec3(
-          normalizedHue + 0.1 * sin(3.0 * u_scroll_progress + 1.5),
+          normalizedHue,
           u_saturation,
-          u_chroma * 0.5 + 0.2 * sin(2.0 * u_scroll_progress)
+          u_chroma
       );
 
       // Convert to RGB
