@@ -197,14 +197,10 @@
                 features on the go.
               </p>
 
-              <!-- 3D Spinning iPhone Container -->
-              <div class="flex justify-center mb-8 perspective-container">
-                <div class="spinning-phone">
-                  <img
-                    :src="getImagePath('iPhoneMockup.png')"
-                    alt="Mobile App Mockup"
-                    class="max-w-md w-full h-auto rounded-2xl"
-                  />
+              <!-- 3D iPhone Model -->
+              <div class="flex justify-center mb-8">
+                <div class="w-full max-w-xl h-[500px] relative">
+                  <Phone3D :imagePath="getImagePath('AppScreenshot.png')" />
                 </div>
               </div>
 
@@ -336,6 +332,7 @@
 <script setup>
 import NeuralBgVue from "../components/ui/bg-neural/NeuralBg.vue";
 import ExpandableGallery from "../components/ui/expandable-gallery/ExpandableGallery.vue";
+import Phone3D from "../components/ui/phone-3D/Phone3D.vue";
 
 // Helper function to get image paths
 const getImagePath = (filename) => {
@@ -390,41 +387,7 @@ const whyChoose = [
 </script>
 
 <style scoped>
-/* 3D Perspective Container */
-.perspective-container {
-  perspective: 1500px;
-}
-
-/* Spinning Phone Animation */
-.spinning-phone {
-  animation: spin3d 8s linear infinite;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 0 30px rgba(255, 153, 51, 0.3));
-}
-
-@keyframes spin3d {
-  0% {
-    transform: rotateY(0deg) rotateX(0deg);
-  }
-  25% {
-    transform: rotateY(90deg) rotateX(5deg);
-  }
-  50% {
-    transform: rotateY(180deg) rotateX(0deg);
-  }
-  75% {
-    transform: rotateY(270deg) rotateX(-5deg);
-  }
-  100% {
-    transform: rotateY(360deg) rotateX(0deg);
-  }
-}
-
-/* Pause animation on hover */
-.spinning-phone:hover {
-  animation-play-state: paused;
-}
-
+/* Floating particles animations */
 @keyframes float-1 {
   0%,
   100% {
