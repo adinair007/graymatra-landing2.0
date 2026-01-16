@@ -87,8 +87,8 @@
               </div>
 
               <!-- Learn More Link -->
-              <a
-                href="/m1-casa"
+              <router-link
+                to="/m1-casa"
                 class="group/link inline-flex items-center gap-3 text-[#ff9933] text-lg md:text-xl font-medium transition-all duration-500 hover:gap-5 w-fit"
               >
                 <span class="relative">
@@ -110,7 +110,7 @@
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </a>
+              </router-link>
             </div>
 
             <!-- Right Content - Logo Animation -->
