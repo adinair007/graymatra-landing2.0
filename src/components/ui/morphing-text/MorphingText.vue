@@ -29,11 +29,16 @@ function setStyles(fraction: number) {
   text2Ref.value.style.opacity = `${fraction ** 0.4 * 100}%`;
 
   const invertedFraction = 1 - fraction;
-  text1Ref.value.style.filter = `blur(${Math.min(8 / invertedFraction - 8, 100)}px)`;
+  text1Ref.value.style.filter = `blur(${Math.min(
+    8 / invertedFraction - 8,
+    100
+  )}px)`;
   text1Ref.value.style.opacity = `${invertedFraction ** 0.4 * 100}%`;
 
-  text1Ref.value.textContent = props.texts[textIndex.value % props.texts.length];
-  text2Ref.value.textContent = props.texts[(textIndex.value + 1) % props.texts.length];
+  text1Ref.value.textContent =
+    props.texts[textIndex.value % props.texts.length];
+  text2Ref.value.textContent =
+    props.texts[(textIndex.value + 1) % props.texts.length];
 }
 
 function doMorph() {
@@ -93,23 +98,13 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="relative mx-auto h-16 w-full max-w-screen-md text-center font-['Montserrat',_sans-serif] text-[80pt] leading-none font-semibold [filter:url(#threshold)_blur(0.6px)] md:h-24 lg:text-[6rem]"
+    class="relative mx-auto h-20 w-full max-w-screen-md text-center font-['Montserrat',_sans-serif] text-[3.8rem] leading-none font-semibold sm:text-[4.8rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] [filter:url(#threshold)_blur(0.6px)]"
     :class="[props.class]"
   >
-    <span
-      ref="text1Ref"
-      :class="[TEXT_CLASSES]"
-    />
-    <span
-      ref="text2Ref"
-      :class="[TEXT_CLASSES]"
-    />
+    <span ref="text1Ref" :class="[TEXT_CLASSES]" />
+    <span ref="text2Ref" :class="[TEXT_CLASSES]" />
 
-    <svg
-      id="filters"
-      class="fixed size-0"
-      preserveAspectRatio="xMidYMid slice"
-    >
+    <svg id="filters" class="fixed size-0" preserveAspectRatio="xMidYMid slice">
       <defs>
         <filter id="threshold">
           <feColorMatrix

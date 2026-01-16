@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/HomePage.vue";
 import M1CasaPage from "../views/M1CasaPage.vue";
 import ContactPage from "../views/ContactPage.vue";
+import M1CasaDemoPage from "../views/M1CasaDemoPage.vue";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/contact",
     name: "Contact",
     component: ContactPage,
+  },
+  {
+    path: "/m1-casa-demo",
+    name: "M1CasaDemo",
+    component: M1CasaDemoPage,
   },
 ];
 

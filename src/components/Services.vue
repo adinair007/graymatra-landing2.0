@@ -44,7 +44,7 @@
           <div class="overflow-hidden">
             <p
               ref="nativeAppsText"
-              class="text-center text-4xl leading-relaxed font-semibold text-gray-700 dark:text-gray-300 opacity-0"
+              class="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-relaxed sm:leading-relaxed md:leading-tight font-semibold text-gray-700 dark:text-gray-300 opacity-0 px-4 max-w-3xl mx-auto"
             >
               High-performance native mobile apps for iOS and Android, tailored
               to your business needs with seamless user experiences and optimal
@@ -81,7 +81,7 @@
           <div class="overflow-hidden">
             <p
               ref="softwareDevText"
-              class="text-center text-4xl leading-relaxed font-semibold text-gray-700 dark:text-gray-300 opacity-0"
+              class="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-relaxed sm:leading-relaxed md:leading-tight font-semibold text-gray-700 dark:text-gray-300 opacity-0 px-4 max-w-3xl mx-auto"
             >
               Custom software solutions to optimize workflows and enhance
               business scalability with cutting-edge technologies.
