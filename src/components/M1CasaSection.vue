@@ -49,41 +49,25 @@
           >
             <!-- Left Content -->
             <div class="flex flex-col justify-center">
-              <!-- Animated Tagline -->
+              <!-- Tagline - No animation, direct display -->
               <div class="mb-8">
-                <div ref="taglineRef" class="leading-snug tracking-wide">
-                  <span
-                    v-for="(word, idx) in taglineWords"
-                    :key="word + idx"
-                    class="inline-block text-3xl md:text-4xl lg:text-5xl font-bhavuka font-medium tracking-tight text-[#ff9933] leading-tight opacity-0"
-                    :style="{
-                      filter: 'blur(10px)',
-                      transition: 'opacity 0.7s, filter 0.7s',
-                    }"
-                    :ref="
-                      (el) => {
-                        if (el) taglineSpans[idx] = el;
-                      }
-                    "
-                  >
-                    {{ word }}&nbsp;
-                  </span>
-                </div>
+                <h3
+                  class="text-3xl md:text-4xl lg:text-5xl font-bhavuka font-medium tracking-tight text-[#ff9933] leading-tight"
+                >
+                  Simplifying Property Management
+                </h3>
               </div>
 
-              <!-- Description with Text Reveal -->
+              <!-- Description - No animation, direct display -->
               <div class="mb-12">
-                <div ref="descriptionContainer" class="overflow-hidden">
-                  <p
-                    ref="descriptionText"
-                    class="text-lg md:text-xl text-gray-300 dark:text-gray-400 leading-relaxed font-light opacity-0"
-                  >
-                    A modern property management platform designed to streamline
-                    community operations with intuitive tools, secure access,
-                    and efficient data management for administrators and
-                    residents alike.
-                  </p>
-                </div>
+                <p
+                  class="text-lg md:text-xl text-gray-300 dark:text-gray-400 leading-relaxed font-light"
+                >
+                  A modern property management platform designed to streamline
+                  community operations with intuitive tools, secure access, and
+                  efficient data management for administrators and residents
+                  alike.
+                </p>
               </div>
 
               <!-- Learn More Link -->
@@ -113,7 +97,7 @@
               </router-link>
             </div>
 
-            <!-- Right Content - Logo Animation -->
+            <!-- Right Content - Logo Animation (unchanged) -->
             <div class="flex items-center justify-center lg:justify-end">
               <div class="relative group/logo">
                 <!-- Glow effect behind logo -->
@@ -186,99 +170,23 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
+import { onMounted, onUnmounted, nextTick } from "vue";
 
-const taglineRef = ref(null);
-const taglineSpans = ref([]);
-const descriptionContainer = ref(null);
-const descriptionText = ref(null);
-
-const taglineWords = computed(() =>
-  "Simplifying Property Management".split(" ")
-);
-
-let hasTaglineAnimated = false;
-let hasDescriptionAnimated = false;
-
-function checkScroll() {
-  // Check tagline animation
-  if (!hasTaglineAnimated && taglineRef.value) {
-    const rect = taglineRef.value.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    if (rect.top < windowHeight * 0.85) {
-      hasTaglineAnimated = true;
-      animateTagline();
-    }
-  }
-
-  // Check description animation
-  if (!hasDescriptionAnimated && descriptionText.value) {
-    const rect = descriptionText.value.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    if (rect.top < windowHeight * 0.85) {
-      hasDescriptionAnimated = true;
-      animateDescription();
-    }
-  }
-}
-
-function animateTagline() {
-  taglineSpans.value.forEach((span, index) => {
-    if (span) {
-      setTimeout(() => {
-        span.style.opacity = "1";
-        span.style.filter = "blur(0px)";
-      }, index * 150);
-    }
-  });
-}
-
-function animateDescription() {
-  if (descriptionText.value) {
-    setTimeout(() => {
-      descriptionText.value.style.opacity = "1";
-      descriptionText.value.style.transition = "opacity 1s ease-out";
-    }, 300);
-  }
-}
+// Removed all refs, animations, and scroll checks for tagline/description
+// Content now displays immediately without reveal effects
 
 onMounted(async () => {
   await nextTick();
-
-  // Listen to scroll events
-  window.addEventListener("scroll", checkScroll);
-
-  const scrollContainer = document.querySelector("[data-scroll-container]");
-  if (scrollContainer) {
-    scrollContainer.addEventListener("scroll", checkScroll);
-  }
-
-  // Set up interval to continuously check scroll position
-  const checkInterval = setInterval(checkScroll, 100);
-
-  // Clean up interval after 30 seconds
-  setTimeout(() => {
-    clearInterval(checkInterval);
-  }, 30000);
-
-  // Initial check
-  checkScroll();
+  // No animation setup needed anymore
 });
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", checkScroll);
-
-  const scrollContainer = document.querySelector("[data-scroll-container]");
-  if (scrollContainer) {
-    scrollContainer.removeEventListener("scroll", checkScroll);
-  }
+  // No cleanup needed
 });
 </script>
 
 <style scoped>
-/* Logo particles */
+/* Logo particles (unchanged) */
 @keyframes float-1 {
   0%,
   100% {
@@ -315,7 +223,7 @@ onUnmounted(() => {
   }
 }
 
-/* Card particles */
+/* Card particles (unchanged) */
 @keyframes card-float-1 {
   0%,
   100% {

@@ -5,19 +5,19 @@
     data-scroll-section
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-      <!-- 2. Mission Statement with Text Scroll Reveal -->
-      <div class="mb-96">
+      <!-- 1. Mission Statement – reduced mobile vertical spacing -->
+      <div class="mb-48 sm:mb-72 md:mb-96">
         <TextScrollReveal
           text="Transforming ideas into seamless, scalable realities."
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium italic text-center w-full px-4 leading-tight font-['Montserrat',_sans-serif] text-gray-700 dark:text-gray-300"
         />
       </div>
 
-      <div class="mb-52 flex justify-center items-center gap-4">
+      <div class="mb-40 sm:mb-52 flex justify-center items-center gap-4">
         <MorphingText :texts="texts" />
       </div>
 
-      <!-- 3. Native Application Development with Container Scroll -->
+      <!-- 2. Native Application Development -->
       <div class="flex flex-col overflow-hidden mb-40">
         <ContainerScroll>
           <template #title>
@@ -40,21 +40,72 @@
             />
           </template>
         </ContainerScroll>
-        <div class="text-center -mt-32 max-w-3xl mx-auto mb-40">
-          <div class="overflow-hidden">
-            <p
-              ref="nativeAppsText"
-              class="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-relaxed sm:leading-relaxed md:leading-tight font-semibold text-gray-700 dark:text-gray-300 opacity-0 px-4 max-w-3xl mx-auto"
+
+        <!-- Description Card – more square-ish, tighter spacing, permanent saffron title -->
+        <div class="mt-4 max-w-2xl mx-auto">
+          <div
+            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl border border-white/20 dark:border-white/10 transition-all duration-700 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+          >
+            <!-- Always-visible mesh gradient -->
+            <div class="absolute inset-0">
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,153,51,0.08),transparent_50%)]"
+              ></div>
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,153,51,0.06),transparent_40%)]"
+              ></div>
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,153,51,0.06),transparent_40%)]"
+              ></div>
+            </div>
+
+            <!-- Content – reduced padding for squarer shape -->
+            <div class="relative z-10 p-6 md:p-8">
+              <h3 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+                <span
+                  class="bg-gradient-to-r from-[#ff9933] via-[#ffb366] to-white bg-clip-text text-transparent"
+                >
+                  High-Performance Native Apps
+                </span>
+              </h3>
+              <p
+                class="text-base md:text-lg text-gray-300 dark:text-gray-400 leading-relaxed font-light"
+              >
+                High-performance native mobile apps for iOS and Android,
+                tailored to your business needs with seamless user experiences
+                and optimal performance.
+              </p>
+            </div>
+
+            <!-- Always-visible edge glow -->
+            <div class="absolute inset-0 rounded-2xl pointer-events-none">
+              <div
+                class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff9933]/50 to-transparent"
+              ></div>
+              <div
+                class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff9933]/50 to-transparent"
+              ></div>
+            </div>
+
+            <!-- Always-visible floating particles -->
+            <div
+              class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
             >
-              High-performance native mobile apps for iOS and Android, tailored
-              to your business needs with seamless user experiences and optimal
-              performance.
-            </p>
+              <div
+                class="absolute top-1/4 left-1/4 w-1 h-1 bg-[#ff9933] rounded-full animate-float-1"
+              ></div>
+              <div
+                class="absolute top-3/4 right-1/3 w-1 h-1 bg-[#ff9933] rounded-full animate-float-2"
+              ></div>
+              <div
+                class="absolute bottom-1/3 left-2/3 w-1 h-1 bg-[#ff9933] rounded-full animate-float-3"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 4. Software Development with Icon Cloud -->
+      <!-- 3. Software Development -->
       <div class="flex flex-col overflow-hidden mb-40">
         <!-- Title -->
         <div class="mx-auto max-w-5xl text-center mb-16">
@@ -76,21 +127,70 @@
           />
         </div>
 
-        <!-- Description with Text Reveal -->
-        <div class="text-center max-w-3xl mx-auto">
-          <div class="overflow-hidden">
-            <p
-              ref="softwareDevText"
-              class="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-relaxed sm:leading-relaxed md:leading-tight font-semibold text-gray-700 dark:text-gray-300 opacity-0 px-4 max-w-3xl mx-auto"
+        <!-- Description Card – same square-ish style with permanent saffron -->
+        <div class="max-w-2xl mx-auto">
+          <div
+            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl border border-white/20 dark:border-white/10 transition-all duration-700 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+          >
+            <!-- Always-visible mesh gradient -->
+            <div class="absolute inset-0">
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,153,51,0.08),transparent_50%)]"
+              ></div>
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,153,51,0.06),transparent_40%)]"
+              ></div>
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,153,51,0.06),transparent_40%)]"
+              ></div>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10 p-6 md:p-8">
+              <h3 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+                <span
+                  class="bg-gradient-to-r from-[#ff9933] via-[#ffb366] to-white bg-clip-text text-transparent"
+                >
+                  Custom Software Solutions
+                </span>
+              </h3>
+              <p
+                class="text-base md:text-lg text-gray-300 dark:text-gray-400 leading-relaxed font-light"
+              >
+                Custom software solutions to optimize workflows and enhance
+                business scalability with cutting-edge technologies.
+              </p>
+            </div>
+
+            <!-- Always-visible edge glow -->
+            <div class="absolute inset-0 rounded-2xl pointer-events-none">
+              <div
+                class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff9933]/50 to-transparent"
+              ></div>
+              <div
+                class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff9933]/50 to-transparent"
+              ></div>
+            </div>
+
+            <!-- Always-visible floating particles -->
+            <div
+              class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
             >
-              Custom software solutions to optimize workflows and enhance
-              business scalability with cutting-edge technologies.
-            </p>
+              <div
+                class="absolute top-1/4 left-1/4 w-1 h-1 bg-[#ff9933] rounded-full animate-float-1"
+              ></div>
+              <div
+                class="absolute top-3/4 right-1/3 w-1 h-1 bg-[#ff9933] rounded-full animate-float-2"
+              ></div>
+              <div
+                class="absolute bottom-1/3 left-2/3 w-1 h-1 bg-[#ff9933] rounded-full animate-float-3"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 5. Other Services - Ultra Sleek -->
+      <!-- 4. Other Services - Ultra Sleek (unchanged) -->
       <div class="mt-32 mb-20">
         <!-- Minimalist Header -->
         <div class="flex items-center justify-start mb-24 gap-4 px-4 group">
@@ -214,7 +314,7 @@
 </template>
 
 <script setup>
-import { ref, h, onMounted, onUnmounted, nextTick } from "vue";
+import { h, onMounted, onUnmounted, nextTick } from "vue";
 import MorphingText from "./ui/morphing-text/MorphingText.vue";
 import TextScrollReveal from "./ui/text-scroll-reveal/TextScrollReveal.vue";
 import ContainerScroll from "./ui/container-scroll/ContainerScroll.vue";
@@ -222,84 +322,16 @@ import IconCloud from "./ui/icon-cloud/IconCloud.vue";
 
 const texts = ["Services", "Solutions", "Expertise"];
 
-const nativeAppsText = ref(null);
-const softwareDevText = ref(null);
-
-let hasNativeAppsAnimated = false;
-let hasSoftwareDevAnimated = false;
-
-function checkScroll() {
-  // Check native apps text animation
-  if (!hasNativeAppsAnimated && nativeAppsText.value) {
-    const rect = nativeAppsText.value.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    if (rect.top < windowHeight * 0.85) {
-      hasNativeAppsAnimated = true;
-      animateText(nativeAppsText.value);
-    }
-  }
-
-  // Check software dev text animation
-  if (!hasSoftwareDevAnimated && softwareDevText.value) {
-    const rect = softwareDevText.value.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    if (rect.top < windowHeight * 0.85) {
-      hasSoftwareDevAnimated = true;
-      animateText(softwareDevText.value);
-    }
-  }
-}
-
-function animateText(element) {
-  if (element) {
-    setTimeout(() => {
-      element.style.opacity = "1";
-      element.style.transition = "opacity 1s ease-out";
-    }, 300);
-  }
-}
-
 onMounted(async () => {
   await nextTick();
-
-  // Listen to scroll events
-  window.addEventListener("scroll", checkScroll);
-
-  const scrollContainer = document.querySelector("[data-scroll-container]");
-  if (scrollContainer) {
-    scrollContainer.addEventListener("scroll", checkScroll);
-  }
-
-  // Set up interval to continuously check scroll position
-  const checkInterval = setInterval(checkScroll, 100);
-
-  // Clean up interval after 30 seconds
-  setTimeout(() => {
-    clearInterval(checkInterval);
-  }, 30000);
-
-  // Initial check
-  checkScroll();
 });
 
-onUnmounted(() => {
-  window.removeEventListener("scroll", checkScroll);
-
-  const scrollContainer = document.querySelector("[data-scroll-container]");
-  if (scrollContainer) {
-    scrollContainer.removeEventListener("scroll", checkScroll);
-  }
-});
-
-// Tech stack images for icon cloud
 const techStackImages = [
   "https://cdn.simpleicons.org/react/61DAFB",
   "https://cdn.simpleicons.org/vue.js/4FC08D",
   "https://cdn.simpleicons.org/nodedotjs/339933",
   "https://cdn.simpleicons.org/python/3776AB",
-  "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", // Java alternative
+  "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
   "https://cdn.simpleicons.org/typescript/3178C6",
   "https://cdn.simpleicons.org/javascript/F7DF1E",
   "https://cdn.simpleicons.org/docker/2496ED",
@@ -308,12 +340,12 @@ const techStackImages = [
   "https://cdn.simpleicons.org/postgresql/4169E1",
   "https://cdn.simpleicons.org/git/F05032",
   "https://cdn.simpleicons.org/github/FFFFFF",
-  "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", // AWS alternative
+  "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
   "https://cdn.simpleicons.org/postman/FF6C37",
   "https://cdn.simpleicons.org/render/46E3B7",
   "https://cdn.simpleicons.org/swift/F05138",
 ];
-// Previous detailed icons
+
 const GlobeIcon = () =>
   h(
     "svg",
@@ -331,7 +363,7 @@ const GlobeIcon = () =>
         "stroke-width": "2",
         d: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
       }),
-    ]
+    ],
   );
 
 const SupportIcon = () =>
@@ -357,7 +389,7 @@ const SupportIcon = () =>
         "stroke-width": "2",
         d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z",
       }),
-    ]
+    ],
   );
 
 const otherServices = [

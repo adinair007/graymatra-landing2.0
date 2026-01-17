@@ -58,7 +58,7 @@ onMounted(() => {
         }
       });
     },
-    { threshold: Array.from({ length: 100 }, (_, i) => i / 100) }
+    { threshold: Array.from({ length: 100 }, (_, i) => i / 100) },
   );
 
   observer.observe(containerRef.value);
@@ -84,7 +84,8 @@ const updateScrollProgress = () => {
   // Normalize to 0-1 range, with extended range for complete reveal
   const progress = Math.max(
     0,
-    Math.min(1, (distance + maxDistance * 0.5) / (maxDistance * 1.2))
+
+    Math.min(1, (distance + maxDistance * 0.5) / (maxDistance * 1.2)),
   );
 
   scrollProgress.value = progress;
@@ -100,10 +101,16 @@ onBeforeUnmount(() => {
 .text-scroll-reveal-wrapper {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 50vh; /* Reduced from 100vh for mobile */
   display: flex;
   align-items: center;
   justify-content: center;
+}
+/* Restore full height on larger screens */
+@media (min-width: 768px) {
+  .text-scroll-reveal-wrapper {
+    min-height: 100vh;
+  }
 }
 
 .text-scroll-reveal-content {
