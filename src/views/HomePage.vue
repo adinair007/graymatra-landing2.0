@@ -4,15 +4,18 @@
       <NeuralBgVue class="w-full h-full" />
     </div>
     <Navbar />
+    <ScrollIndicator />
     <SmoothScroll>
       <main class="relative z-10">
         <Hero id="home" data-scroll-section />
         <SubtextSection id="subtext" data-scroll-section />
         <Services id="services" data-scroll-section />
-        <M1CasaSection id="m1casa" data-scroll-section />
+        <M1CasaSection id="m1casa" data-scroll-section />   
+        <Contact id="contact" data-scroll-section />
         <Footer id="footer" data-scroll-section />
       </main>
     </SmoothScroll>
+    
   </div>
 </template>
 
@@ -22,8 +25,10 @@ import Hero from "../components/Hero.vue";
 import SubtextSection from "../components/SubtextSection.vue";
 import Services from "../components/Services.vue";
 import M1CasaSection from "../components/M1CasaSection.vue";
+import Contact from "../components/Contact.vue";
 import Footer from "../components/Footer.vue";
-import SmoothScroll from "../components/SmoothScroll.vue";
+import SmoothScroll from "../components/ui/SmoothScroll.vue";
+import ScrollIndicator from "../components/ui/ScrollIndicator.vue";
 import NeuralBgVue from "../components/ui/bg-neural/NeuralBg.vue";
 
 import { onMounted, nextTick } from "vue";

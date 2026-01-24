@@ -1,15 +1,17 @@
 <template>
   <section
     id="m1-casa"
-    class="py-32 relative overflow-hidden"
+    class="py-16 md:py-32 pb-24 md:pb-32 lg:pb-40 relative overflow-hidden"
     data-scroll-section
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
       <!-- Section Title - Outside Card -->
-      <div class="flex items-center justify-start mb-16 gap-4 px-4 group">
+      <div
+        class="flex items-center justify-start mb-12 md:mb-16 gap-4 px-4 group"
+      >
         <div class="relative">
           <h2
-            class="text-6xl md:text-7xl lg:text-8xl font-bhavuka font-bold text-white dark:text-gray-100 tracking-wide"
+            class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bhavuka font-bold text-white dark:text-gray-100 tracking-wide"
           >
             M1 Casa
           </h2>
@@ -45,23 +47,23 @@
 
           <!-- Content Grid -->
           <div
-            class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 p-12 md:p-16"
+            class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 p-8 md:p-12 lg:p-16"
           >
             <!-- Left Content -->
             <div class="flex flex-col justify-center">
               <!-- Tagline - No animation, direct display -->
-              <div class="mb-8">
+              <div class="mb-6 md:mb-8">
                 <h3
-                  class="text-3xl md:text-4xl lg:text-5xl font-bhavuka font-medium tracking-tight text-[#ff9933] leading-tight"
+                  class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bhavuka font-medium tracking-tight text-[#ff9933] leading-tight"
                 >
                   Simplifying Property Management
                 </h3>
               </div>
 
               <!-- Description - No animation, direct display -->
-              <div class="mb-12">
+              <div class="mb-8 md:mb-12">
                 <p
-                  class="text-lg md:text-xl text-gray-300 dark:text-gray-400 leading-relaxed font-light"
+                  class="text-base md:text-lg lg:text-xl text-gray-300 dark:text-gray-400 leading-relaxed font-light"
                 >
                   A modern property management platform designed to streamline
                   community operations with intuitive tools, secure access, and
@@ -73,7 +75,7 @@
               <!-- Learn More Link -->
               <router-link
                 to="/m1-casa"
-                class="group/link inline-flex items-center gap-3 text-[#ff9933] text-lg md:text-xl font-medium transition-all duration-500 hover:gap-5 w-fit"
+                class="group/link inline-flex items-center gap-3 text-[#ff9933] text-base md:text-lg lg:text-xl font-medium transition-all duration-500 hover:gap-5 w-fit"
               >
                 <span class="relative">
                   Learn more
@@ -97,7 +99,7 @@
               </router-link>
             </div>
 
-            <!-- Right Content - Logo Animation (unchanged) -->
+            <!-- Right Content - Logo Animation -->
             <div class="flex items-center justify-center lg:justify-end">
               <div class="relative group/logo">
                 <!-- Glow effect behind logo -->
@@ -107,12 +109,12 @@
 
                 <!-- Logo container -->
                 <div
-                  class="relative rounded-3xl overflow-hidden border-2 border-[#ff9933]/30 group-hover/logo:border-[#ff9933]/60 transition-all duration-700 bg-black/20 p-8 backdrop-blur-sm"
+                  class="relative rounded-3xl overflow-hidden border-2 border-[#ff9933]/30 group-hover/logo:border-[#ff9933]/60 transition-all duration-700 bg-black/20 p-6 md:p-8 backdrop-blur-sm"
                 >
                   <img
                     src="../assets/M1CasaLogoAnimation.gif"
                     alt="M1 Casa Logo Animation"
-                    class="w-full max-w-md h-auto transition-transform duration-700 group-hover/logo:scale-105"
+                    class="w-full max-w-[280px] md:max-w-md h-auto transition-transform duration-700 group-hover/logo:scale-105"
                   />
                 </div>
 
@@ -172,21 +174,15 @@
 <script setup>
 import { onMounted, onUnmounted, nextTick } from "vue";
 
-// Removed all refs, animations, and scroll checks for tagline/description
-// Content now displays immediately without reveal effects
-
 onMounted(async () => {
   await nextTick();
-  // No animation setup needed anymore
 });
 
-onUnmounted(() => {
-  // No cleanup needed
-});
+onUnmounted(() => {});
 </script>
 
 <style scoped>
-/* Logo particles (unchanged) */
+/* Logo particles */
 @keyframes float-1 {
   0%,
   100% {
@@ -223,7 +219,7 @@ onUnmounted(() => {
   }
 }
 
-/* Card particles (unchanged) */
+/* Card particles */
 @keyframes card-float-1 {
   0%,
   100% {

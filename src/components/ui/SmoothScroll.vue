@@ -70,24 +70,30 @@ onMounted(async () => {
   };
   window.addEventListener("resize", handleResize);
 
-  // Force multiple updates to ensure all sections are detected
-  setTimeout(() => {
-    scrollInstance?.update();
-  }, 100);
+  const updateDelays = [100, 300, 500, 800, 1200, 1500, 2000];
+  updateDelays.forEach((delay) => {
+    setTimeout(() => {
+      scrollInstance?.update();
+    }, delay);
+  });
 
-  setTimeout(() => {
-    scrollInstance?.update();
-  }, 500);
+  // Listen for custom events that might change layout
+  const handleLayoutChange = () => {
+    setTimeout(() => {
+      scrollInstance?.update();
+    }, 100);
+  };
 
-  setTimeout(() => {
-    scrollInstance?.update();
-  }, 1000);
+  window.addEventListener("load", handleLayoutChange);
+  document.addEventListener("DOMContentLoaded", handleLayoutChange);
 });
 
 onBeforeUnmount(() => {
   scrollInstance?.destroy();
   window.removeEventListener("resize", () => {});
+  window.removeEventListener("load", () => {});
   document.removeEventListener("click", () => {});
+  document.removeEventListener("DOMContentLoaded", () => {});
 });
 </script>
 
@@ -101,5 +107,16 @@ onBeforeUnmount(() => {
 /* Ensure sections are properly visible */
 [data-scroll-section] {
   will-change: transform;
+}
+
+/* Ensure footer and all sections have proper spacing */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Fix for Locomotive Scroll container */
+[data-scroll-container] {
+  min-height: 100vh;
 }
 </style>
