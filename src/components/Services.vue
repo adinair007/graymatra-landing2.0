@@ -5,7 +5,7 @@
     data-scroll-section
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-      <!-- 1. Mission Statement – reduced mobile vertical spacing -->
+      <!-- 1. Mission Statement -->
       <div class="mb-48 sm:mb-72 md:mb-96">
         <TextScrollReveal
           text="Transforming ideas into seamless, scalable realities."
@@ -41,25 +41,19 @@
           </template>
         </ContainerScroll>
 
-        <!-- Description Card – more square-ish, tighter spacing, permanent saffron title -->
+        <!-- Description Card - Optimized -->
         <div class="mt-4 max-w-2xl mx-auto">
           <div
-            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl border border-white/20 dark:border-white/10 transition-all duration-700 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 border border-white/20 dark:border-white/10 transition-all duration-500 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
           >
-            <!-- Always-visible mesh gradient -->
-            <div class="absolute inset-0">
+            <!-- Gradient with backdrop blur -->
+            <div class="absolute inset-0 backdrop-blur-2xl">
               <div
                 class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,153,51,0.08),transparent_50%)]"
               ></div>
-              <div
-                class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,153,51,0.06),transparent_40%)]"
-              ></div>
-              <div
-                class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,153,51,0.06),transparent_40%)]"
-              ></div>
             </div>
 
-            <!-- Content – reduced padding for squarer shape -->
+            <!-- Content -->
             <div class="relative z-10 p-6 md:p-8">
               <h3 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
                 <span
@@ -77,7 +71,7 @@
               </p>
             </div>
 
-            <!-- Always-visible edge glow -->
+            <!-- Edge glow -->
             <div class="absolute inset-0 rounded-2xl pointer-events-none">
               <div
                 class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff9933]/50 to-transparent"
@@ -87,9 +81,9 @@
               ></div>
             </div>
 
-            <!-- Always-visible floating particles -->
+            <!-- Particles - disabled on mobile for performance -->
             <div
-              class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
+              class="hidden md:block absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
             >
               <div
                 class="absolute top-1/4 left-1/4 w-1 h-1 bg-[#ff9933] rounded-full animate-float-1"
@@ -127,21 +121,15 @@
           />
         </div>
 
-        <!-- Description Card – same square-ish style with permanent saffron -->
+        <!-- Description Card - Optimized -->
         <div class="max-w-2xl mx-auto">
           <div
-            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl border border-white/20 dark:border-white/10 transition-all duration-700 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 border border-white/20 dark:border-white/10 transition-all duration-500 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
           >
-            <!-- Always-visible mesh gradient -->
-            <div class="absolute inset-0">
+            <!-- Gradient with backdrop blur -->
+            <div class="absolute inset-0 backdrop-blur-2xl">
               <div
                 class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,153,51,0.08),transparent_50%)]"
-              ></div>
-              <div
-                class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,153,51,0.06),transparent_40%)]"
-              ></div>
-              <div
-                class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,153,51,0.06),transparent_40%)]"
               ></div>
             </div>
 
@@ -162,7 +150,7 @@
               </p>
             </div>
 
-            <!-- Always-visible edge glow -->
+            <!-- Edge glow -->
             <div class="absolute inset-0 rounded-2xl pointer-events-none">
               <div
                 class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff9933]/50 to-transparent"
@@ -172,9 +160,9 @@
               ></div>
             </div>
 
-            <!-- Always-visible floating particles -->
+            <!-- Particles - disabled on mobile -->
             <div
-              class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
+              class="hidden md:block absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
             >
               <div
                 class="absolute top-1/4 left-1/4 w-1 h-1 bg-[#ff9933] rounded-full animate-float-1"
@@ -190,7 +178,7 @@
         </div>
       </div>
 
-      <!-- 4. Other Services - Ultra Sleek (unchanged) -->
+      <!-- 4. Other Services - Optimized -->
       <div class="mt-32 mb-20">
         <!-- Minimalist Header -->
         <div class="flex items-center justify-start mb-24 gap-4 px-4 group">
@@ -209,7 +197,7 @@
           ></div>
         </div>
 
-        <!-- Sleek Cards Grid -->
+        <!-- Sleek Cards Grid - Optimized -->
         <div
           class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4"
         >
@@ -218,54 +206,43 @@
             :key="index"
             class="group relative h-full"
           >
-            <!-- Card -->
+            <!-- Card with backdrop blur -->
             <div
-              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl border border-white/20 dark:border-white/10 transition-all duration-700 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] h-full flex flex-col"
+              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl border border-white/20 dark:border-white/10 transition-all duration-500 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] h-full flex flex-col"
             >
-              <!-- Animated mesh gradient background -->
+              <!-- Simplified gradient - only on hover for desktop -->
               <div
-                class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
+                class="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
               >
                 <div
                   class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,153,51,0.08),transparent_50%)]"
-                ></div>
-                <div
-                  class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,153,51,0.06),transparent_40%)]"
-                ></div>
-                <div
-                  class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,153,51,0.06),transparent_40%)]"
                 ></div>
               </div>
 
               <!-- Content Container -->
               <div class="relative z-10 p-10 md:p-12 flex flex-col flex-grow">
-                <!-- Floating Icon Container -->
+                <!-- Icon Container - Simplified animation -->
                 <div class="mb-8 relative inline-block">
-                  <!-- Glow ring -->
+                  <!-- Glow ring - desktop only -->
                   <div
-                    class="absolute inset-0 rounded-2xl bg-[#ff9933]/20 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-all duration-700"
+                    class="hidden md:block absolute inset-0 rounded-2xl bg-[#ff9933]/20 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-all duration-700"
                   ></div>
 
                   <!-- Icon box -->
                   <div
-                    class="relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-[#ff9933]/10 to-[#ff9933]/5 border border-[#ff9933]/20 group-hover:border-[#ff9933]/40 transition-all duration-700 group-hover:scale-110 group-hover:rotate-3"
+                    class="relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-[#ff9933]/10 to-[#ff9933]/5 border border-[#ff9933]/20 group-hover:border-[#ff9933]/40 transition-all duration-500"
                   >
                     <component
                       :is="service.icon"
-                      class="w-8 h-8 md:w-10 md:h-10 text-[#ff9933] transition-all duration-700 group-hover:scale-110 drop-shadow-[0_0_12px_rgba(255,153,51,0.5)]"
+                      class="w-8 h-8 md:w-10 md:h-10 text-[#ff9933] transition-all duration-500 drop-shadow-[0_0_12px_rgba(255,153,51,0.5)]"
                     />
                   </div>
-
-                  <!-- Orbiting dot -->
-                  <div
-                    class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#ff9933] opacity-0 group-hover:opacity-100 group-hover:animate-pulse"
-                  ></div>
                 </div>
 
                 <!-- Title with gradient -->
                 <h3 class="text-3xl md:text-4xl font-bold mb-5 tracking-tight">
                   <span
-                    class="bg-gradient-to-r from-white via-white to-gray-400 dark:from-gray-100 dark:via-gray-200 dark:to-gray-400 bg-clip-text text-transparent group-hover:from-[#ff9933] group-hover:via-[#ffb366] group-hover:to-white transition-all duration-700"
+                    class="bg-gradient-to-r from-white via-white to-gray-400 dark:from-gray-100 dark:via-gray-200 dark:to-gray-400 bg-clip-text text-transparent group-hover:from-[#ff9933] group-hover:via-[#ffb366] group-hover:to-white transition-all duration-500"
                   >
                     {{ service.title }}
                   </span>
@@ -273,7 +250,7 @@
 
                 <!-- Description -->
                 <p
-                  class="text-base md:text-lg text-gray-300 dark:text-gray-400 leading-relaxed font-light group-hover:text-gray-200 dark:group-hover:text-gray-300 transition-colors duration-700 flex-grow"
+                  class="text-base md:text-lg text-gray-300 dark:text-gray-400 leading-relaxed font-light group-hover:text-gray-200 dark:group-hover:text-gray-300 transition-colors duration-500 flex-grow"
                 >
                   {{ service.description }}
                 </p>
@@ -281,7 +258,7 @@
 
               <!-- Edge glow effect -->
               <div
-                class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               >
                 <div
                   class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff9933]/50 to-transparent"
@@ -292,9 +269,9 @@
               </div>
             </div>
 
-            <!-- Floating particles effect -->
+            <!-- Floating particles - desktop only -->
             <div
-              class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
+              class="hidden md:block absolute inset-0 pointer-events-none overflow-hidden rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             >
               <div
                 class="absolute top-1/4 left-1/4 w-1 h-1 bg-[#ff9933] rounded-full animate-float-1"
@@ -314,17 +291,13 @@
 </template>
 
 <script setup>
-import { h, onMounted, onUnmounted, nextTick } from "vue";
+import { h } from "vue";
 import MorphingText from "./ui/morphing-text/MorphingText.vue";
 import TextScrollReveal from "./ui/text-scroll-reveal/TextScrollReveal.vue";
 import ContainerScroll from "./ui/container-scroll/ContainerScroll.vue";
 import IconCloud from "./ui/icon-cloud/IconCloud.vue";
 
 const texts = ["Services", "Solutions", "Expertise"];
-
-onMounted(async () => {
-  await nextTick();
-});
 
 const techStackImages = [
   "https://cdn.simpleicons.org/react/61DAFB",
@@ -409,6 +382,7 @@ const otherServices = [
 </script>
 
 <style scoped>
+/* Reduced animation intensity for mobile performance */
 @keyframes float-1 {
   0%,
   100% {
@@ -416,7 +390,7 @@ const otherServices = [
     opacity: 0;
   }
   50% {
-    transform: translate(10px, -20px);
+    transform: translate(8px, -15px);
     opacity: 1;
   }
 }
@@ -428,7 +402,7 @@ const otherServices = [
     opacity: 0;
   }
   50% {
-    transform: translate(-15px, -15px);
+    transform: translate(-12px, -12px);
     opacity: 1;
   }
 }
@@ -440,7 +414,7 @@ const otherServices = [
     opacity: 0;
   }
   50% {
-    transform: translate(8px, -25px);
+    transform: translate(6px, -18px);
     opacity: 1;
   }
 }

@@ -4,7 +4,7 @@
       <span
         v-for="(word, index) in words"
         :key="index"
-        class="inline-block mr-2 sm:mr-3 transition-all duration-500"
+        class="inline-block mr-2 sm:mr-3 transition-opacity duration-500"
         :style="getWordStyle(index)"
       >
         {{ word }}
@@ -29,23 +29,52 @@ const props = defineProps({
 
 const containerRef = ref(null);
 const scrollProgress = ref(0);
+let ticking = false;
 
 const words = computed(() => props.text.split(" "));
 
 const getWordStyle = (index) => {
   const totalWords = words.value.length;
-  // More aggressive reveal calculation with buffer for last words
   const wordProgress = (scrollProgress.value * (totalWords + 4) - index) / 1.8;
   const opacity = Math.max(0.15, Math.min(1, wordProgress));
   const blur = Math.max(0, 12 - wordProgress * 12);
 
   return {
     opacity,
-    filter: `blur(${blur}px)`,
+    // Blur only on desktop (md and up)
+    filter: window.innerWidth >= 768 ? `blur(${blur}px)` : "none",
   };
 };
 
 let observer = null;
+
+const updateScrollProgress = () => {
+  if (!containerRef.value) {
+    ticking = false;
+    return;
+  }
+
+  const rect = containerRef.value.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+  const viewportCenter = windowHeight / 2;
+  const elementCenter = rect.top + rect.height / 2;
+  const maxDistance = windowHeight;
+  const distance = viewportCenter - elementCenter;
+  const progress = Math.max(
+    0,
+    Math.min(1, (distance + maxDistance * 0.5) / (maxDistance * 1.2)),
+  );
+
+  scrollProgress.value = progress;
+  ticking = false;
+};
+
+const requestTick = () => {
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(updateScrollProgress);
+  }
+};
 
 onMounted(() => {
   if (!containerRef.value) return;
@@ -54,46 +83,20 @@ onMounted(() => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          updateScrollProgress();
+          requestTick();
         }
       });
     },
-    { threshold: Array.from({ length: 100 }, (_, i) => i / 100) },
+    { threshold: [0, 0.25, 0.5, 0.75, 1] },
   );
 
   observer.observe(containerRef.value);
-
-  window.addEventListener("scroll", updateScrollProgress);
+  window.addEventListener("scroll", requestTick, { passive: true });
 });
-
-const updateScrollProgress = () => {
-  if (!containerRef.value) return;
-
-  const rect = containerRef.value.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-
-  // Use viewport-based calculation for sticky effect
-  // Progress from when element enters viewport to when it exits
-  const viewportCenter = windowHeight / 2;
-  const elementCenter = rect.top + rect.height / 2;
-
-  // Calculate progress based on distance from viewport center
-  const maxDistance = windowHeight;
-  const distance = viewportCenter - elementCenter;
-
-  // Normalize to 0-1 range, with extended range for complete reveal
-  const progress = Math.max(
-    0,
-
-    Math.min(1, (distance + maxDistance * 0.5) / (maxDistance * 1.2)),
-  );
-
-  scrollProgress.value = progress;
-};
 
 onBeforeUnmount(() => {
   if (observer) observer.disconnect();
-  window.removeEventListener("scroll", updateScrollProgress);
+  window.removeEventListener("scroll", requestTick);
 });
 </script>
 
@@ -101,12 +104,12 @@ onBeforeUnmount(() => {
 .text-scroll-reveal-wrapper {
   position: relative;
   width: 100%;
-  min-height: 50vh; /* Reduced from 100vh for mobile */
+  min-height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* Restore full height on larger screens */
+
 @media (min-width: 768px) {
   .text-scroll-reveal-wrapper {
     min-height: 100vh;

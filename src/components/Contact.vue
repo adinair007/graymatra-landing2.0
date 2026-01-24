@@ -120,7 +120,7 @@
               <h3
                 class="text-sm md:text-base font-light text-gray-500 dark:text-gray-400 tracking-[0.25em] uppercase mb-2"
               >
-                Navigate
+                Site Map
               </h3>
               <div class="h-[1px] w-12 bg-[#ff9933]/30"></div>
             </div>
