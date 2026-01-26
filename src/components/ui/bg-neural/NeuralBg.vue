@@ -164,7 +164,10 @@ function onResize() {
   detectEnvironment(); // re-check on resize (orientation change etc.)
 }
 
-function animate() {
+let lastFrameTime = 0;
+const frameInterval = 1000 / 60; // 60 FPS target
+
+function animate(currentTime: number = 0) {
   if (
     !rendererRef.value ||
     !sceneRef.value ||
@@ -173,21 +176,32 @@ function animate() {
   )
     return;
 
-  const uniforms = meshRef.value.program.uniforms;
-  uniforms.u_time.value = performance.now();
+  // Frame rate limiting
+  const elapsed = currentTime - lastFrameTime;
 
-  // Only lerp & update pointer when pointer effect is allowed
-  if (!isTouchEnvironment.value) {
-    pointer.value.x += (pointer.value.targetX - pointer.value.x) * 0.16;
-    pointer.value.y += (pointer.value.targetY - pointer.value.y) * 0.16;
+  if (elapsed > frameInterval) {
+    lastFrameTime = currentTime - (elapsed % frameInterval);
 
-    uniforms.u_pointer.value = [
-      pointer.value.x / window.innerWidth,
-      1 - pointer.value.y / window.innerHeight,
-    ];
+    const uniforms = meshRef.value.program.uniforms;
+    uniforms.u_time.value = performance.now();
+
+    // Only lerp & update pointer when pointer effect is allowed
+    if (!isTouchEnvironment.value) {
+      pointer.value.x += (pointer.value.targetX - pointer.value.x) * 0.16;
+      pointer.value.y += (pointer.value.targetY - pointer.value.y) * 0.16;
+
+      uniforms.u_pointer.value = [
+        pointer.value.x / window.innerWidth,
+        1 - pointer.value.y / window.innerHeight,
+      ];
+    }
+
+    rendererRef.value.render({
+      scene: sceneRef.value,
+      camera: cameraRef.value,
+    });
   }
 
-  rendererRef.value.render({ scene: sceneRef.value, camera: cameraRef.value });
   animationRef.value = requestAnimationFrame(animate);
 }
 
@@ -207,7 +221,9 @@ onMounted(() => {
 
     // Only attach mouse listener if pointer effect should be active
     if (!isTouchEnvironment.value) {
-      window.addEventListener("pointermove", handlePointerMove);
+      window.addEventListener("pointermove", handlePointerMove, {
+        passive: true,
+      });
       // Center initially
       pointer.value.targetX = window.innerWidth * 0.5;
       pointer.value.targetY = window.innerHeight * 0.5;

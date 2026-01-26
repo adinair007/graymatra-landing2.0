@@ -28,21 +28,21 @@ onMounted(async () => {
   // More aggressive mobile optimization
   scrollInstance = new LocomotiveScroll({
     el: scrollContainer.value,
-    smooth: !isMobileDevice, // Disable smooth scroll on mobile
+    smooth: !isMobileDevice,
     lerp: isMobileDevice ? 0.15 : 0.08,
-    multiplier: isMobileDevice ? 1.2 : 1.2,
+    multiplier: isMobileDevice ? 1.6 : 1.2,
     getDirection: true,
     getSpeed: true,
     class: "is-inview",
     scrollFromAnywhere: true,
-    resetNativeScroll: isMobileDevice, // Use native scroll on mobile
+    resetNativeScroll: isMobileDevice,
     reloadOnContextChange: true,
     smartphone: {
-      smooth: false, // Disable smooth scroll on smartphones
+      smooth: false,
       breakpoint: 768,
     },
     tablet: {
-      smooth: false, // Disable smooth scroll on tablets
+      smooth: false,
       breakpoint: 1024,
     },
   });
