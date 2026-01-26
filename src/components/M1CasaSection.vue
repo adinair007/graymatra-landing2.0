@@ -100,7 +100,7 @@
             </div>
 
             <!-- Right Content - Logo Animation -->
-            <div class="flex items-center justify-center lg:justify-end">
+            <div class="flex items-center justify-center lg:justify-end">              
               <div class="relative group/logo">
                 <!-- Glow effect behind logo -->
                 <div
@@ -111,11 +111,16 @@
                 <div
                   class="relative rounded-3xl overflow-hidden border-2 border-[#ff9933]/30 group-hover/logo:border-[#ff9933]/60 transition-all duration-700 bg-black/20 p-6 md:p-8 backdrop-blur-sm"
                 >
+                <router-link
+                to="/m1-casa"
+                class="group/link inline-flex items-center gap-3 text-[#ff9933] text-base md:text-lg lg:text-xl font-medium transition-all duration-500 hover:gap-5 w-fit"
+              >
                   <img
                     src="../assets/M1CasaLogoAnimation.gif"
                     alt="M1 Casa Logo Animation"
                     class="w-full max-w-[280px] md:max-w-md h-auto transition-transform duration-700 group-hover/logo:scale-105"
                   />
+                </router-link>
                 </div>
 
                 <!-- Orbiting particles -->

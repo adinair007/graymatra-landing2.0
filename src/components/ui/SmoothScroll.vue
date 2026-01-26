@@ -20,12 +20,15 @@ onMounted(async () => {
   await nextTick();
 
   if (!scrollContainer.value) return;
+  const isMobileDevice =
+    window.innerWidth <= 1024 ||
+    /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
 
   scrollInstance = new LocomotiveScroll({
     el: scrollContainer.value,
     smooth: true,
-    lerp: 0.08,
-    multiplier: 1.2,
+    lerp: isMobileDevice ? 0.12 : 0.08,
+    multiplier: isMobileDevice ? 1.6 : 1.2,
     getDirection: true,
     getSpeed: true,
     class: "is-inview",
@@ -33,7 +36,7 @@ onMounted(async () => {
     resetNativeScroll: true,
     reloadOnContextChange: true,
     smartphone: { smooth: true },
-    tablet: { smooth: true },
+    tablet: { smooth: true, breakpoint: 1024 },
   });
 
   // Handle anchor links

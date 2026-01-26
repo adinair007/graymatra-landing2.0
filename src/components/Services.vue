@@ -369,7 +369,7 @@ const otherServices = [
   {
     title: "Website Development",
     description:
-      "Responsive, user-centric websites designed to engage and convert your audience with modern technologies.",
+      "Responsive, user-centric websites designed to engage and captivate your audience with modern technologies.",
     icon: GlobeIcon,
   },
   {

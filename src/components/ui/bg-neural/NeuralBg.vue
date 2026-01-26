@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue";
-import { Camera, Mesh, Plane, Program, Renderer, Transform } from "ogl";
 import { onMounted, onUnmounted, ref, watch } from "vue";
+import { Camera, Mesh, Plane, Program, Renderer, Transform } from "ogl";
 
-interface Props {
-  hue?: number;
-  saturation?: number;
-  chroma?: number;
-  class?: HTMLAttributes["class"];
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  hue: 17,
-  saturation: 0.9,
-  chroma: 0.6,
-});
+const props = withDefaults(
+  defineProps<{
+    hue?: number;
+    saturation?: number;
+    chroma?: number;
+    class?: string;
+  }>(),
+  {
+    hue: 17,
+    saturation: 0.9,
+    chroma: 0.6,
+  },
+);
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 const animationRef = ref<number | null>(null);
@@ -23,141 +23,122 @@ const sceneRef = ref<Transform | null>(null);
 const meshRef = ref<Mesh | null>(null);
 const cameraRef = ref<Camera | null>(null);
 
-const pointerRef = ref({
-  x: 0,
-  y: 0,
-  tX: 0,
-  tY: 0,
-});
+const pointer = ref({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
-const vertexShader = `
+const isTouchEnvironment = ref(false);
+
+function detectEnvironment() {
+  // More reliable check: prioritize touch capability over width
+  isTouchEnvironment.value =
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    // fallback width check only if no touch info
+    (navigator.maxTouchPoints === undefined && window.innerWidth <= 1024);
+}
+
+const vertex = `
   precision mediump float;
-
   attribute vec2 position;
   attribute vec2 uv;
-
   varying vec2 vUv;
-
   void main() {
-      vUv = uv;
-      gl_Position = vec4(position, 0.0, 1.0);
+    vUv = uv;
+    gl_Position = vec4(position, 0.0, 1.0);
   }
 `;
 
-const fragmentShader = `
+const fragment = `
   precision mediump float;
-
   varying vec2 vUv;
   uniform float u_time;
   uniform float u_ratio;
-  uniform vec2 u_pointer_position;
-  uniform float u_scroll_progress;
+  uniform vec2 u_pointer;
   uniform float u_hue;
   uniform float u_saturation;
   uniform float u_chroma;
+  uniform bool u_disablePointerEffect;
 
   vec2 rotate(vec2 uv, float th) {
-      return mat2(cos(th), sin(th), -sin(th), cos(th)) * uv;
+    return mat2(cos(th), sin(th), -sin(th), cos(th)) * uv;
   }
 
-  float neuro_shape(vec2 uv, float t, float p) {
-      vec2 sine_acc = vec2(0.);
-      vec2 res = vec2(0.);
-      float scale = 8.;
-
-      for (int j = 0; j < 15; j++) {
-          uv = rotate(uv, 1.);
-          sine_acc = rotate(sine_acc, 1.);
-          vec2 layer = uv * scale + float(j) + sine_acc - t;
-          sine_acc += sin(layer) + 2.4 * p;
-          res += (.5 + .5 * cos(layer)) / scale;
-          scale *= (1.2);
-      }
-      return res.x + res.y;
+  float neuro(vec2 uv, float t, float p) {
+    vec2 s = vec2(0.);
+    vec2 r = vec2(0.);
+    float scale = 8.;
+    for (int i = 0; i < 15; i++) {
+      uv  = rotate(uv, 1.);
+      s   = rotate(s, 1.);
+      vec2 layer = uv * scale + float(i) + s - t;
+      s += sin(layer) + 2.4 * p;
+      r += (0.5 + 0.5 * cos(layer)) / scale;
+      scale *= 1.2;
+    }
+    return r.x + r.y;
   }
 
-  // HSL to RGB conversion
   vec3 hsl2rgb(vec3 c) {
-      vec3 rgb = clamp(abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0);
-      return c.z + c.y * (rgb - 0.5) * (1.0 - abs(2.0 * c.z - 1.0));
+    vec3 rgb = clamp(abs(mod(c.x*6.+vec3(0,4,2),6.)-3.)-1.,0.,1.);
+    return c.z + c.y * (rgb - 0.5) * (1. - abs(2.*c.z - 1.));
   }
 
   void main() {
-      vec2 uv = .5 * vUv;
-      uv.x *= u_ratio;
+    vec2 uv = 0.5 * vUv;
+    uv.x *= u_ratio;
 
-      vec2 pointer = vUv - u_pointer_position;
-      pointer.x *= u_ratio;
-      float p = clamp(length(pointer), 0., 1.);
-      p = .5 * pow(1. - p, 2.);
+    float influence = 0.0;
+    if (!u_disablePointerEffect) {
+      vec2 delta = uv - u_pointer;
+      delta.x *= u_ratio;
+      float dist = length(delta);
+      influence = 0.5 * pow(1.0 - clamp(dist, 0.0, 1.0), 2.0);
+    }
 
-      float t = .001 * u_time;
-      vec3 color = vec3(0.);
+    float t = 0.001 * u_time;
+    float n = neuro(uv, t, influence);
+    n = 1.2 * pow(n, 3.0);
+    n += pow(n, 10.0);
+    n = max(0.0, n - 0.5);
+    n *= (1.0 - length(vUv - 0.5));
 
-      float noise = neuro_shape(uv, t, p);
+    float h = u_hue / 360.0;
+    vec3 hsl = vec3(h, u_saturation, u_chroma);
+    vec3 col = hsl2rgb(hsl) * n;
 
-      noise = 1.2 * pow(noise, 3.);
-      noise += pow(noise, 10.);
-      noise = max(.0, noise - .5);
-      noise *= (1. - length(vUv - .5));
-
-      // Convert hue from degrees to 0-1 range
-      float normalizedHue = u_hue / 360.0;
-      
-      // Create HSL color WITHOUT scroll animation - locked color
-      vec3 hsl = vec3(
-          normalizedHue,
-          u_saturation,
-          u_chroma
-      );
-
-      // Convert to RGB
-      color = hsl2rgb(hsl);
-      color = color * noise;
-
-      gl_FragColor = vec4(color, noise);
+    gl_FragColor = vec4(col, n * 0.92);
   }
 `;
 
-function initOGL() {
+function initWebGL() {
   const canvas = canvasRef.value;
   if (!canvas) return false;
 
   try {
     const renderer = new Renderer({
       canvas,
-      width: window.innerWidth,
-      height: window.innerHeight,
-      dpr: Math.min(window.devicePixelRatio, 2),
+      dpr: Math.min(window.devicePixelRatio, 1.8),
     });
 
     const camera = new Camera(renderer.gl);
     const scene = new Transform();
 
-    const geometry = new Plane(renderer.gl, {
-      width: 2,
-      height: 2,
-    });
+    const geometry = new Plane(renderer.gl, { width: 2, height: 2 });
 
     const program = new Program(renderer.gl, {
-      vertex: vertexShader,
-      fragment: fragmentShader,
+      vertex,
+      fragment,
       uniforms: {
         u_time: { value: 0 },
         u_ratio: { value: window.innerWidth / window.innerHeight },
-        u_pointer_position: { value: [0, 0] },
-        u_scroll_progress: { value: 0 },
+        u_pointer: { value: [0.5, 0.5] },
         u_hue: { value: props.hue },
         u_saturation: { value: props.saturation },
         u_chroma: { value: props.chroma },
+        u_disablePointerEffect: { value: false },
       },
     });
 
-    const mesh = new Mesh(renderer.gl, {
-      geometry,
-      program,
-    });
-
+    const mesh = new Mesh(renderer.gl, { geometry, program });
     mesh.setParent(scene);
 
     rendererRef.value = renderer;
@@ -166,147 +147,118 @@ function initOGL() {
     meshRef.value = mesh;
 
     return true;
-  } catch (error) {
-    console.error("Error initializing OGL:", error);
+  } catch (err) {
+    console.error("WebGL init failed:", err);
     return false;
   }
 }
 
-function resizeCanvas() {
-  const renderer = rendererRef.value;
-  const mesh = meshRef.value;
-  const canvas = canvasRef.value;
-
-  if (!canvas || !renderer || !mesh) return;
-
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  renderer.setSize(width, height);
-
-  // Update ratio uniform
-  if (mesh.program && mesh.program.uniforms.u_ratio) {
-    mesh.program.uniforms.u_ratio.value = width / height;
+function onResize() {
+  if (!rendererRef.value) return;
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  rendererRef.value.setSize(w, h);
+  if (meshRef.value?.program?.uniforms.u_ratio) {
+    meshRef.value.program.uniforms.u_ratio.value = w / h;
   }
+  detectEnvironment(); // re-check on resize (orientation change etc.)
 }
 
-function render() {
-  const renderer = rendererRef.value;
-  const scene = sceneRef.value;
-  const camera = cameraRef.value;
-  const mesh = meshRef.value;
-  const pointer = pointerRef.value;
+function animate() {
+  if (
+    !rendererRef.value ||
+    !sceneRef.value ||
+    !cameraRef.value ||
+    !meshRef.value
+  )
+    return;
 
-  if (!renderer || !scene || !camera || !mesh) return;
+  const uniforms = meshRef.value.program.uniforms;
+  uniforms.u_time.value = performance.now();
 
-  const currentTime = performance.now();
+  // Only lerp & update pointer when pointer effect is allowed
+  if (!isTouchEnvironment.value) {
+    pointer.value.x += (pointer.value.targetX - pointer.value.x) * 0.16;
+    pointer.value.y += (pointer.value.targetY - pointer.value.y) * 0.16;
 
-  // Smooth pointer interpolation
-  pointer.x += (pointer.tX - pointer.x) * 0.2;
-  pointer.y += (pointer.tY - pointer.y) * 0.2;
-
-  // Update uniforms
-  if (mesh.program && mesh.program.uniforms) {
-    const uniforms = mesh.program.uniforms;
-
-    if (uniforms.u_time) uniforms.u_time.value = currentTime;
-    if (uniforms.u_pointer_position) {
-      uniforms.u_pointer_position.value = [
-        pointer.x / window.innerWidth,
-        1 - pointer.y / window.innerHeight,
-      ];
-    }
-    if (uniforms.u_scroll_progress) {
-      uniforms.u_scroll_progress.value =
-        window.pageYOffset / (2 * window.innerHeight);
-    }
+    uniforms.u_pointer.value = [
+      pointer.value.x / window.innerWidth,
+      1 - pointer.value.y / window.innerHeight,
+    ];
   }
 
-  renderer.render({ scene, camera });
-  animationRef.value = requestAnimationFrame(render);
-}
-
-function updateMousePosition(x: number, y: number) {
-  pointerRef.value.tX = x;
-  pointerRef.value.tY = y;
+  rendererRef.value.render({ scene: sceneRef.value, camera: cameraRef.value });
+  animationRef.value = requestAnimationFrame(animate);
 }
 
 function handlePointerMove(e: PointerEvent) {
-  updateMousePosition(e.clientX, e.clientY);
+  if (isTouchEnvironment.value) return;
+  pointer.value.targetX = e.clientX;
+  pointer.value.targetY = e.clientY;
 }
-
-function handleTouchMove(e: TouchEvent) {
-  updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
-}
-
-function handleClick(e: MouseEvent) {
-  updateMousePosition(e.clientX, e.clientY);
-}
-
-// Watch for prop changes and update uniforms
-watch(
-  () => props.hue,
-  (newHue) => {
-    const mesh = meshRef.value;
-    if (mesh && mesh.program && mesh.program.uniforms.u_hue) {
-      mesh.program.uniforms.u_hue.value = newHue;
-    }
-  }
-);
-
-watch(
-  () => props.saturation,
-  (newSaturation) => {
-    const mesh = meshRef.value;
-    if (mesh && mesh.program && mesh.program.uniforms.u_saturation) {
-      mesh.program.uniforms.u_saturation.value = newSaturation;
-    }
-  }
-);
-
-watch(
-  () => props.chroma,
-  (newChroma) => {
-    const mesh = meshRef.value;
-    if (mesh && mesh.program && mesh.program.uniforms.u_chroma) {
-      mesh.program.uniforms.u_chroma.value = newChroma;
-    }
-  }
-);
 
 onMounted(() => {
-  if (initOGL()) {
-    resizeCanvas();
-    render();
+  detectEnvironment();
+  window.addEventListener("resize", onResize);
 
-    window.addEventListener("resize", resizeCanvas);
-    window.addEventListener("pointermove", handlePointerMove);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("click", handleClick);
+  if (initWebGL()) {
+    onResize(); // sets ratio + detects env
+    animate(); // always start time-based animation loop
+
+    // Only attach mouse listener if pointer effect should be active
+    if (!isTouchEnvironment.value) {
+      window.addEventListener("pointermove", handlePointerMove);
+      // Center initially
+      pointer.value.targetX = window.innerWidth * 0.5;
+      pointer.value.targetY = window.innerHeight * 0.5;
+      pointer.value.x = pointer.value.targetX;
+      pointer.value.y = pointer.value.targetY;
+    }
+
+    // Ensure uniform matches current state
+    if (meshRef.value?.program?.uniforms.u_disablePointerEffect) {
+      meshRef.value.program.uniforms.u_disablePointerEffect.value =
+        isTouchEnvironment.value;
+    }
   }
 });
 
 onUnmounted(() => {
-  if (animationRef.value) {
-    cancelAnimationFrame(animationRef.value);
-  }
-
-  window.removeEventListener("resize", resizeCanvas);
-  window.removeEventListener("pointermove", handlePointerMove);
-  window.removeEventListener("touchmove", handleTouchMove);
-  window.removeEventListener("click", handleClick);
-
-  // Clean up OGL resources
-  if (rendererRef.value) {
-    rendererRef.value = null;
+  if (animationRef.value) cancelAnimationFrame(animationRef.value);
+  window.removeEventListener("resize", onResize);
+  if (!isTouchEnvironment.value) {
+    window.removeEventListener("pointermove", handlePointerMove);
   }
 });
+
+watch(
+  () => isTouchEnvironment.value,
+  (val) => {
+    if (meshRef.value?.program?.uniforms.u_disablePointerEffect) {
+      meshRef.value.program.uniforms.u_disablePointerEffect.value = val;
+    }
+  },
+);
 </script>
 
 <template>
   <canvas
     ref="canvasRef"
-    class="pointer-events-none absolute inset-0 size-full opacity-95"
-    :class="[props.class]"
+    class="absolute inset-0 w-full h-full pointer-events-none select-none"
+    :class="props.class"
   />
 </template>
+
+<style scoped>
+canvas {
+  z-index: -1;
+  opacity: 0.92;
+}
+
+@media (max-width: 1024px) {
+  canvas {
+    pointer-events: none !important;
+    touch-action: none !important;
+  }
+}
+</style>

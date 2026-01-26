@@ -33,19 +33,21 @@ let ticking = false;
 
 const words = computed(() => props.text.split(" "));
 
+const isMobile = computed(() => window.innerWidth <= 1024);
+
 const getWordStyle = (index) => {
   const totalWords = words.value.length;
   const wordProgress = (scrollProgress.value * (totalWords + 4) - index) / 1.8;
   const opacity = Math.max(0.15, Math.min(1, wordProgress));
-  const blur = Math.max(0, 12 - wordProgress * 12);
 
   return {
     opacity,
-    // Blur only on desktop (md and up)
-    filter: window.innerWidth >= 768 ? `blur(${blur}px)` : "none",
+    filter: isMobile.value
+      ? "none"
+      : `blur(${Math.max(0, 12 - wordProgress * 12)}px)`,
+    willChange: "opacity",
   };
 };
-
 let observer = null;
 
 const updateScrollProgress = () => {

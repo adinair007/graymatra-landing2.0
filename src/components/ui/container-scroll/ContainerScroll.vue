@@ -72,15 +72,28 @@ onUnmounted(() => {
 });
 
 const scaleDimensions = computed(() =>
-  isMobile.value ? [0.7, 0.9] : [1.05, 1]
+  isMobile.value ? [0.7, 0.9] : [1.05, 1],
 );
 
-const rotate = computed(() => 20 * (1 - scrollYProgress.value));
+const isReducedMotion = computed(
+  () =>
+    window.innerWidth <= 1024 ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+);
+
+const rotate = computed(() =>
+  isReducedMotion.value ? 0 : 20 * (1 - scrollYProgress.value),
+);
 const scale = computed(() => {
+  if (isReducedMotion.value) return 1;
   const [start, end] = scaleDimensions.value;
   return start + (end - start) * scrollYProgress.value;
 });
-const translateY = computed(() => -100 * scrollYProgress.value);
+const translateY = computed(() =>
+  isReducedMotion.value
+    ? -30 * scrollYProgress.value
+    : -100 * scrollYProgress.value,
+);
 </script>
 
 <template>
