@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { Camera, Mesh, Plane, Program, Renderer, Transform } from "ogl";
 
 const props = withDefaults(
@@ -26,13 +26,13 @@ const cameraRef = ref<Camera | null>(null);
 const pointer = ref({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
 const isTouchEnvironment = ref(false);
+const isScrolling = ref(false);
+let scrollTimeout: number | null = null;
 
 function detectEnvironment() {
-  // More reliable check: prioritize touch capability over width
   isTouchEnvironment.value =
     "ontouchstart" in window ||
     navigator.maxTouchPoints > 0 ||
-    // fallback width check only if no touch info
     (navigator.maxTouchPoints === undefined && window.innerWidth <= 1024);
 }
 
@@ -114,9 +114,14 @@ function initWebGL() {
   if (!canvas) return false;
 
   try {
+    // Mobile: lower pixel density → fewer fragments to shade
+    const dpr = isTouchEnvironment.value
+      ? Math.min(window.devicePixelRatio, 1.15) // 1.0–1.15 is usually good compromise
+      : Math.min(window.devicePixelRatio, 1.8);
+
     const renderer = new Renderer({
       canvas,
-      dpr: Math.min(window.devicePixelRatio, 1.8),
+      dpr,
     });
 
     const camera = new Camera(renderer.gl);
@@ -161,11 +166,10 @@ function onResize() {
   if (meshRef.value?.program?.uniforms.u_ratio) {
     meshRef.value.program.uniforms.u_ratio.value = w / h;
   }
-  detectEnvironment(); // re-check on resize (orientation change etc.)
+  detectEnvironment();
 }
 
 let lastFrameTime = 0;
-const frameInterval = 1000 / 60; // 60 FPS target
 
 function animate(currentTime: number = 0) {
   if (
@@ -176,16 +180,27 @@ function animate(currentTime: number = 0) {
   )
     return;
 
-  // Frame rate limiting
+  // Target FPS differs by device type
+  const targetFPS = isTouchEnvironment.value ? 34 : 60;
+  const frameInterval = 1000 / targetFPS;
+
   const elapsed = currentTime - lastFrameTime;
 
-  if (elapsed > frameInterval) {
+  if (elapsed >= frameInterval) {
     lastFrameTime = currentTime - (elapsed % frameInterval);
 
     const uniforms = meshRef.value.program.uniforms;
-    uniforms.u_time.value = performance.now();
 
-    // Only lerp & update pointer when pointer effect is allowed
+    let timeValue = performance.now();
+
+    // Only on mobile: during active scrolling → reduce animation speed
+    // (looks almost the same when user stops, but saves GPU during scroll)
+    if (isTouchEnvironment.value && isScrolling.value) {
+      timeValue *= 0.6; // 60% speed → less change per frame during scroll
+    }
+
+    uniforms.u_time.value = timeValue;
+
     if (!isTouchEnvironment.value) {
       pointer.value.x += (pointer.value.targetX - pointer.value.x) * 0.16;
       pointer.value.y += (pointer.value.targetY - pointer.value.y) * 0.16;
@@ -211,27 +226,33 @@ function handlePointerMove(e: PointerEvent) {
   pointer.value.targetY = e.clientY;
 }
 
+function handleScroll() {
+  isScrolling.value = true;
+  if (scrollTimeout !== null) clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    isScrolling.value = false;
+  }, 180);
+}
+
 onMounted(() => {
   detectEnvironment();
   window.addEventListener("resize", onResize);
+  window.addEventListener("scroll", handleScroll, { passive: true });
 
   if (initWebGL()) {
-    onResize(); // sets ratio + detects env
-    animate(); // always start time-based animation loop
+    onResize();
+    animate();
 
-    // Only attach mouse listener if pointer effect should be active
     if (!isTouchEnvironment.value) {
       window.addEventListener("pointermove", handlePointerMove, {
         passive: true,
       });
-      // Center initially
       pointer.value.targetX = window.innerWidth * 0.5;
       pointer.value.targetY = window.innerHeight * 0.5;
       pointer.value.x = pointer.value.targetX;
       pointer.value.y = pointer.value.targetY;
     }
 
-    // Ensure uniform matches current state
     if (meshRef.value?.program?.uniforms.u_disablePointerEffect) {
       meshRef.value.program.uniforms.u_disablePointerEffect.value =
         isTouchEnvironment.value;
@@ -242,19 +263,12 @@ onMounted(() => {
 onUnmounted(() => {
   if (animationRef.value) cancelAnimationFrame(animationRef.value);
   window.removeEventListener("resize", onResize);
+  window.removeEventListener("scroll", handleScroll);
   if (!isTouchEnvironment.value) {
     window.removeEventListener("pointermove", handlePointerMove);
   }
+  if (scrollTimeout !== null) clearTimeout(scrollTimeout);
 });
-
-watch(
-  () => isTouchEnvironment.value,
-  (val) => {
-    if (meshRef.value?.program?.uniforms.u_disablePointerEffect) {
-      meshRef.value.program.uniforms.u_disablePointerEffect.value = val;
-    }
-  },
-);
 </script>
 
 <template>
@@ -269,6 +283,8 @@ watch(
 canvas {
   z-index: -1;
   opacity: 0.92;
+  will-change: transform, contents; /* Helps layer promotion */
+  image-rendering: pixelated; /* Minor quality hint, often helps perf */
 }
 
 @media (max-width: 1024px) {
