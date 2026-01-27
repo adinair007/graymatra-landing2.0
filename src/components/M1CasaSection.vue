@@ -28,7 +28,7 @@
       <div class="relative group">
         <!-- Card Container with darker acrylic effect -->
         <div
-          class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 dark:from-black/80 dark:via-gray-900/70 backdrop-blur-3xl border border-white/10 dark:border-white/5 group-hover:border-[#ff9933]/50 transition-all duration-700 group-hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+          class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 dark:from-black/80 dark:via-gray-900/70 backdrop-blur-3xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 dark:border-white/5 group-hover:border-[#ff9933]/50 transition-all duration-700 group-hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
         >
           <!-- Animated mesh gradient background -->
           <div
@@ -109,7 +109,7 @@
 
                 <!-- Logo container -->
                 <div
-                  class="relative rounded-3xl overflow-hidden border-2 border-[#ff9933]/30 group-hover/logo:border-[#ff9933]/60 transition-all duration-700 bg-black/20 p-6 md:p-8 backdrop-blur-sm"
+                  class="relative rounded-3xl overflow-hidden border-2 border-[#ff9933]/30 group-hover/logo:border-[#ff9933]/60 transition-all duration-700 bg-black/20 p-6 md:p-8 backdrop-blur-sm [-webkit-backdrop-filter:blur(40px)]"
                 >
                 <router-link
                 to="/m1-casa"

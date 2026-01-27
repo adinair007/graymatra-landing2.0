@@ -56,7 +56,7 @@
             class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 border border-white/20 dark:border-white/10 transition-all duration-500 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
           >
             <!-- Gradient with backdrop blur -->
-            <div class="absolute inset-0 backdrop-blur-2xl">
+            <div class="absolute inset-0 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)]">
               <div
                 class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,153,51,0.08),transparent_50%)]"
               ></div>
@@ -136,7 +136,7 @@
             class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 border border-white/20 dark:border-white/10 transition-all duration-500 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
           >
             <!-- Gradient with backdrop blur -->
-            <div class="absolute inset-0 backdrop-blur-2xl">
+            <div class="absolute inset-0 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)]">
               <div
                 class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,153,51,0.08),transparent_50%)]"
               ></div>
@@ -217,7 +217,7 @@
           >
             <!-- Card with backdrop blur -->
             <div
-              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl border border-white/20 dark:border-white/10 transition-all duration-500 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] h-full flex flex-col"
+              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 via-gray-900/40 to-black/30 dark:from-gray-800/60 dark:via-gray-900/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/20 dark:border-white/10 transition-all duration-500 hover:border-[#ff9933]/50 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] h-full flex flex-col"
             >
               <!-- Simplified gradient - only on hover for desktop -->
               <div

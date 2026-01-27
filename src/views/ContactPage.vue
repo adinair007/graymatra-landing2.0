@@ -9,7 +9,7 @@
 
     <!-- Navbar -->
     <nav
-      class="sticky top-0 z-50 backdrop-blur-2xl bg-black/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)] border-b border-white/5 transition-all duration-300"
+      class="sticky top-0 z-50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] bg-black/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)] border-b border-white/5 transition-all duration-300"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
@@ -31,7 +31,7 @@
             <router-link
               v-if="$route.path !== '/contact'"
               to="/contact"
-              class="group relative px-6 py-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] overflow-hidden"
+              class="group relative px-6 py-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] overflow-hidden"
             >
               <!-- Glow effect -->
               <div
@@ -71,7 +71,7 @@
                 @click="isDesktopMenuOpen = !isDesktopMenuOpen"
                 @mouseenter="isHamburgerHovered = true"
                 @mouseleave="isHamburgerHovered = false"
-                class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+                class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
                 aria-label="Toggle menu"
               >
                 <div
@@ -112,7 +112,7 @@
               >
                 <div
                   v-if="isDesktopMenuOpen"
-                  class="absolute right-0 mt-3 w-64 rounded-2xl bg-gradient-to-br from-black/90 via-gray-900/80 to-black/70 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden"
+                  class="absolute right-0 mt-3 w-64 rounded-2xl bg-gradient-to-br from-black/90 via-gray-900/80 to-black/70 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden"
                 >
                   <div class="relative z-10 p-2">
                     <!-- Links inside dropdown -->
@@ -175,7 +175,7 @@
               @click="isMobileOpen = !isMobileOpen"
               @mouseenter="isMobileHamburgerHovered = true"
               @mouseleave="isMobileHamburgerHovered = false"
-              class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300"
+              class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300"
               aria-label="Toggle menu"
             >
               <div
@@ -229,7 +229,7 @@
                 v-if="$route.path !== '/m1-casa'"
                 to="/m1-casa"
                 @click="isMobileOpen = false"
-                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
+                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
               >
                 <span class="text-white text-xl font-bhavuka font-bold"
                   >M1 Casa</span
@@ -253,7 +253,7 @@
                 v-if="$route.path !== '/'"
                 to="/"
                 @click="isMobileOpen = false"
-                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
+                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
               >
                 <span class="text-white text-xl font-bhavuka font-bold"
                   >Home</span
@@ -277,7 +277,7 @@
                 v-if="$route.path !== '/contact'"
                 to="/contact"
                 @click="isMobileOpen = false"
-                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
+                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
               >
                 <span class="text-white text-xl font-bhavuka font-bold"
                   >Contact</span
@@ -326,7 +326,7 @@
           <!-- Contact Form Card -->
           <div class="max-w-4xl mx-auto">
             <div
-              class="group relative p-6 md:p-8 rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+              class="group relative p-6 md:p-8 rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
             >
               <!-- Glow effect -->
               <div

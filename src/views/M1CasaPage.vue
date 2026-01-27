@@ -6,7 +6,7 @@
       <NeuralBgVue class="w-full h-full" />
     </div>
     <nav
-      class="sticky top-0 z-50 backdrop-blur-2xl bg-black/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)] border-b border-white/5 transition-all duration-300"
+      class="sticky top-0 z-50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] bg-black/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)] border-b border-white/5 transition-all duration-300"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
@@ -27,7 +27,7 @@
             <router-link
               v-if="$route.path !== '/contact'"
               to="/contact"
-              class="group relative px-6 py-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] overflow-hidden"
+              class="group relative px-6 py-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)] overflow-hidden"
             >
               <div
                 class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-xl pointer-events-none"
@@ -66,7 +66,7 @@
                 @click="isDesktopMenuOpen = !isDesktopMenuOpen"
                 @mouseenter="isHamburgerHovered = true"
                 @mouseleave="isHamburgerHovered = false"
-                class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+                class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
                 aria-label="Toggle menu"
               >
                 <div
@@ -106,7 +106,7 @@
               >
                 <div
                   v-if="isDesktopMenuOpen"
-                  class="absolute right-0 mt-3 w-64 rounded-2xl bg-gradient-to-br from-black/90 via-gray-900/80 to-black/70 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden"
+                  class="absolute right-0 mt-3 w-64 rounded-2xl bg-gradient-to-br from-black/90 via-gray-900/80 to-black/70 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden"
                 >
                   <div class="relative z-10 p-2">
                     <router-link
@@ -168,7 +168,7 @@
               @click="isMobileOpen = !isMobileOpen"
               @mouseenter="isMobileHamburgerHovered = true"
               @mouseleave="isMobileHamburgerHovered = false"
-              class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300"
+              class="p-3 rounded-xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300"
               aria-label="Toggle menu"
             >
               <div
@@ -215,14 +215,14 @@
           class="md:hidden border-t border-white/10 overflow-hidden"
         >
           <div
-            class="relative bg-gradient-to-br from-black/90 via-gray-900/80 to-black/70 backdrop-blur-2xl"
+            class="relative bg-gradient-to-br from-black/90 via-gray-900/80 to-black/70 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)]"
           >
             <div class="relative z-10 px-4 py-6 space-y-3">
               <router-link
                 v-if="$route.path !== '/m1-casa'"
                 to="/m1-casa"
                 @click="isMobileOpen = false"
-                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
+                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
               >
                 <span class="text-white text-xl font-bhavuka font-bold"
                   >M1 Casa</span
@@ -246,7 +246,7 @@
                 v-if="$route.path !== '/'"
                 to="/"
                 @click="isMobileOpen = false"
-                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
+                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
               >
                 <span class="text-white text-xl font-bhavuka font-bold"
                   >Home</span
@@ -270,7 +270,7 @@
                 v-if="$route.path !== '/contact'"
                 to="/contact"
                 @click="isMobileOpen = false"
-                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
+                class="group/link flex items-center justify-between px-5 py-4 rounded-2xl bg-gradient-to-br from-black/50 via-gray-900/40 to-black/30 backdrop-blur-xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-300 hover:shadow-[0_4px_16px_rgba(255,153,51,0.1)]"
               >
                 <span class="text-white text-xl font-bhavuka font-bold"
                   >Contact</span
@@ -332,7 +332,7 @@
               href="https://www.m1casa.com"
               target="_blank"
               rel="noopener noreferrer"
-              class="group relative px-10 py-5 rounded-2xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/60 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.25)] overflow-hidden min-w-[220px] text-center"
+              class="group relative px-10 py-5 rounded-2xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/60 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.25)] overflow-hidden min-w-[220px] text-center"
             >
               <div
                 class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
@@ -403,7 +403,7 @@
             <div
               v-for="(item, index) in whyChoose"
               :key="index"
-              class="group relative p-8 rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+              class="group relative p-8 rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
             >
               <div
                 class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-3xl"
@@ -460,7 +460,7 @@
           </p>
 
           <div
-            class="relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl p-8"
+            class="relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] p-8"
           >
             <div class="absolute inset-0 pointer-events-none">
               <div
@@ -481,7 +481,7 @@
       <section id="mobile-app" class="py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
           <div
-            class="group relative p-12 rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
+            class="group relative p-12 rounded-3xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/50 transition-all duration-700 hover:shadow-[0_8px_32px_rgba(255,153,51,0.15)]"
           >
             <div
               class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-3xl"
@@ -576,7 +576,7 @@
               href="https://www.m1casa.com"
               target="_blank"
               rel="noopener noreferrer"
-              class="group relative px-12 py-6 rounded-2xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl border border-white/10 hover:border-[#ff9933]/60 transition-all duration-700 hover:shadow-[0_12px_48px_rgba(255,153,51,0.3)] overflow-hidden min-w-[260px] text-center"
+              class="group relative px-12 py-6 rounded-2xl bg-gradient-to-br from-black/70 via-gray-900/60 to-black/50 backdrop-blur-2xl [-webkit-backdrop-filter:blur(40px)] border border-white/10 hover:border-[#ff9933]/60 transition-all duration-700 hover:shadow-[0_12px_48px_rgba(255,153,51,0.3)] overflow-hidden min-w-[260px] text-center"
             >
               <div
                 class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
