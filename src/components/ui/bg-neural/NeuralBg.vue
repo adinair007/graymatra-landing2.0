@@ -114,9 +114,8 @@ function initWebGL() {
   if (!canvas) return false;
 
   try {
-    // Mobile: lower pixel density → fewer fragments to shade
     const dpr = isTouchEnvironment.value
-      ? Math.min(window.devicePixelRatio, 1.15) // 1.0–1.15 is usually good compromise
+      ? Math.min(window.devicePixelRatio, 1.15)
       : Math.min(window.devicePixelRatio, 1.8);
 
     const renderer = new Renderer({
@@ -180,9 +179,13 @@ function animate(currentTime: number = 0) {
   )
     return;
 
-  // Target FPS differs by device type
   const targetFPS = isTouchEnvironment.value ? 34 : 60;
   const frameInterval = 1000 / targetFPS;
+
+  // Bootstrap first frame
+  if (lastFrameTime === 0) {
+    lastFrameTime = currentTime || performance.now();
+  }
 
   const elapsed = currentTime - lastFrameTime;
 
@@ -193,10 +196,8 @@ function animate(currentTime: number = 0) {
 
     let timeValue = performance.now();
 
-    // Only on mobile: during active scrolling → reduce animation speed
-    // (looks almost the same when user stops, but saves GPU during scroll)
     if (isTouchEnvironment.value && isScrolling.value) {
-      timeValue *= 0.6; // 60% speed → less change per frame during scroll
+      timeValue *= 0.6; // slow down during scroll on mobile (still continuous)
     }
 
     uniforms.u_time.value = timeValue;
@@ -241,7 +242,7 @@ onMounted(() => {
 
   if (initWebGL()) {
     onResize();
-    animate();
+    animate(); // start immediately
 
     if (!isTouchEnvironment.value) {
       window.addEventListener("pointermove", handlePointerMove, {
@@ -283,8 +284,8 @@ onUnmounted(() => {
 canvas {
   z-index: -1;
   opacity: 0.92;
-  will-change: transform, contents; /* Helps layer promotion */
-  image-rendering: pixelated; /* Minor quality hint, often helps perf */
+  will-change: transform, contents;
+  image-rendering: pixelated;
 }
 
 @media (max-width: 1024px) {

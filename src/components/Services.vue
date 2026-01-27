@@ -13,8 +13,17 @@
         />
       </div>
 
+      <!-- Title area: Static on mobile, Morphing on larger screens -->
       <div class="mb-40 sm:mb-52 flex justify-center items-center gap-4">
-        <MorphingText :texts="texts" />
+        <!-- Static "Services" – visible only on mobile (below sm breakpoint) -->
+        <h2
+          class="text-[3.8rem] leading-none font-semibold sm:text-[4.8rem] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] font-['Montserrat',_sans-serif] text-gray-900 dark:text-gray-100 sm:hidden"
+        >
+          Services
+        </h2>
+
+        <!-- Morphing text – hidden on mobile, visible on sm and up -->
+        <MorphingText :texts="texts" class="hidden sm:block" />
       </div>
 
       <!-- 2. Native Application Development -->
