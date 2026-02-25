@@ -52,7 +52,7 @@
 <script setup>
 import CustomTypewriter from "./ui/CustomTypewriter.vue";
 
-import { useDarkMode } from "../stores/darkMode";
+import { useDarkMode } from "../stores/darkmode";
 const { isDarkMode } = useDarkMode();
 </script>
 

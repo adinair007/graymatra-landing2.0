@@ -32,7 +32,7 @@ import ScrollIndicator from "../components/ui/ScrollIndicator.vue";
 import NeuralBgVue from "../components/ui/bg-neural/NeuralBg.vue";
 
 import { onMounted, nextTick } from "vue";
-import { useDarkMode } from "../stores/darkMode";
+import { useDarkMode } from "../stores/darkmode";
 
 const dark = useDarkMode();
 
